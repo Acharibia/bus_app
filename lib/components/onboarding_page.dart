@@ -49,8 +49,8 @@ class OnBoardingPage extends StatelessWidget {
                             color: Colors.teal.shade700),
                       ),
                       SizedBox(width: 8,),
-                      Text(
-                        AuthenticationService().getUserName() ?? "",
+                        Text(
+                            AuthenticationService().getUserName() ?? "",
                         style: const TextStyle(
                             fontSize: 30, color: Colors.black54),
                       ),

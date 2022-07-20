@@ -21,9 +21,7 @@ class _MyMapState extends State<MyMap> {
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection("location").snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (_added) {
-              mymap(snapshot);
-            }
+
             if (!snapshot.hasData) {
               return Center(
                 child: CircularProgressIndicator(),
