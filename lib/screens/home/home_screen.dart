@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bus_app/components/my_map.dart';
+import 'package:bus_app/components/neu_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,7 +12,8 @@ import '../../components/my_drawer_header.dart';
 import '../../services/authentication_service.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, this.onTap}) : super(key: key);
+  final onTap;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -28,26 +31,44 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   var currentPage = DrawerSections.account;
+  bool isButtonPressed = false;
+  void buttonPressed(){
+    setState((){
+      if (isButtonPressed == false) {
+        isButtonPressed =true;
+      }  else if (isButtonPressed == true ) {
+        isButtonPressed =false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: AppBar(
-          backgroundColor: Colors.green,
-          title: Text("Shuttle Tracker"),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications),
-            )
-          ],
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
-          elevation: 5,
-        ),
+      backgroundColor: Colors.grey.shade300,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text("Shuttle Tracker", style: TextStyle(color: Colors.black),),
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Container(
+              width: 40,
+              height: 30,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade800,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(child: IconButton(onPressed: (){}, icon: Icon(Icons.notifications))),
+            ),
+          ),
+        ],
       ),
       drawer: Drawer(
+        backgroundColor: Colors.grey,
         child: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -59,103 +80,260 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          TextButton(
-              onPressed: () {
-                _getLocation();
-              },
-              child: Text(
-                "add my location",
-              )),
-          TextButton(
-              onPressed: () {
-                _listenLocation();
-              },
-              child: Text(
-                "enable live location",
-              )),
-          TextButton(
-              onPressed: () {
-                _stopListening();
-              },
-              child: Text(
-                "stop live location",
-              )),
-          Expanded(
-            child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection("location").snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return ListView.builder(
-                    itemCount: snapshot.data?.docs.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Card(
-                            child: ListTile(
-                              title: Text(snapshot.data!.docs[index]['name']
-                                  .toString()),
-                              subtitle: Row(
-                                children: [
-                                  Text(
-                                    snapshot.data!.docs[index]['latitude']
-                                        .toString(),
-                                  ),
-                                  Text(
-                                    snapshot.data!.docs[index]['longitude']
-                                        .toString(),
-                                  )
-                                ],
-                              ),
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) => MyMap(snapshot
-                                                .data!.docs[index].id)));
-                                  },
-                                  icon: Icon(Icons.directions)),
-                            ),
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 250,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/background2.jpg"),
+                      fit: BoxFit.cover),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomRight,
+                      colors: [
+                        Colors.black.withOpacity(.4),
+                        Colors.black.withOpacity(.2),
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Hey There",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        height: 50,
+                        margin: EdgeInsets.symmetric(horizontal: 40),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                        child: Center(
+                          child: Text(
+                            "Find Bus",
+                            style: TextStyle(
+                                color: Colors.grey.shade900,
+                                fontWeight: FontWeight.bold),
                           ),
-                          Card(
-                            child: ListTile(
-                              title: Text(snapshot.data!.docs[index]['name']
-                                  .toString()),
-                              subtitle: Row(
-                                children: [
-                                  Text(
-                                    snapshot.data!.docs[index]['latitude']
-                                        .toString(),
-                                  ),
-                                  Text(
-                                    snapshot.data!.docs[index]['longitude']
-                                        .toString(),
-                                  )
-                                ],
-                              ),
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) => MyMap(snapshot
-                                                .data!.docs[index].id)));
-                                  },
-                                  icon: Icon(Icons.directions)),
-                            ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  padding: EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  children: [
+
+                  NeuButton(
+                    id: 1,
+                    title: "Commercial",
+                    onTap: buttonPressed,
+                    isButtonPressed: isButtonPressed,
+                  ),
+                    NeuButton(
+                      id:2,
+                      title: "Brunei",
+                      onTap: buttonPressed,
+                      isButtonPressed: isButtonPressed,
+                    ),
+                    NeuButton(
+                      id: 3,
+                      title: "Bomso Gate",
+                      onTap: buttonPressed,
+                      isButtonPressed: isButtonPressed,
+                    ),
+                    NeuButton(
+                      id: 4,
+                      title: "Medical Village",
+                      onTap: buttonPressed,
+                      isButtonPressed: isButtonPressed,
+                    ),
+                    NeuButton(
+                      id: 5,
+                      title: "",
+                      onTap: buttonPressed,
+                      isButtonPressed: isButtonPressed,
+                    ),
+                    NeuButton(
+                      id: 6,
+                      title: "",
+                      onTap: buttonPressed,
+                      isButtonPressed: isButtonPressed,
+                    ),
+                    
+                  ],
+                ),
+              ),
+
+/*              Expanded(child: GridView.count(
+                  crossAxisCount: 2,
+                  padding: EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  children: _listItem
+                      .map(
+                        (item) => Card(
+                          color: Colors.transparent,
+                      elevation: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: AssetImage(item),
+                            fit: BoxFit.cover,
                           ),
-                        ],
+                        ),
+                        child: Transform.translate(
+                          offset: Offset(50, -50),
+                          child: Container(
+                            width: 30,
+                            height: 40,
+                            margin: EdgeInsets.symmetric(horizontal: 65, vertical: 63),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+
+                            ),
+                            child: Icon(Icons.card_travel, size: 15,),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  )
+                      .toList()),
+              )*/
+
+              /*
+              TextButton(
+                  onPressed: () {
+                    _getLocation();
+                  },
+                  child: Text(
+                    "add my location",
+                  )),
+              TextButton(
+                  onPressed: () {
+                    _listenLocation();
+                  },
+                  child: Text(
+                    "enable live location",
+                  )),
+              TextButton(
+                  onPressed: () {
+                    _stopListening();
+                  },
+                  child: Text(
+                    "stop live location",
+                  )),*/
+              /* Expanded(
+                child: StreamBuilder(
+                  stream:
+                      FirebaseFirestore.instance.collection("location").snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
                       );
-                    });
-              },
-            ),
+                    }
+                    return ListView.builder(
+                        itemCount: snapshot.data?.docs.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Card(
+                                child: ListTile(
+                                  title: Text(snapshot.data!.docs[index]['name']
+                                      .toString()),
+                                  subtitle: Row(
+                                    children: [
+                                      Text(
+                                        snapshot.data!.docs[index]['latitude']
+                                            .toString(),
+                                      ),
+                                      Text(
+                                        snapshot.data!.docs[index]['longitude']
+                                            .toString(),
+                                      )
+                                    ],
+                                  ),
+                                  trailing: IconButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) => MyMap(snapshot
+                                                    .data!.docs[index].id)));
+                                      },
+                                      icon: Icon(Icons.directions)),
+                                ),
+                              ),
+                              Container(
+                                height: 100,
+                                width:300,
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                                child: Card(
+                                  child: ListTile(
+                                    title: Text(snapshot.data!.docs[index]['name']
+                                        .toString()),
+                                    subtitle: Row(
+                                      children: [
+                                        Text(
+                                          snapshot.data!.docs[index]['latitude']
+                                              .toString(),
+                                        ),
+                                        Text(
+                                          snapshot.data!.docs[index]['longitude']
+                                              .toString(),
+                                        )
+                                      ],
+                                    ),
+                                    trailing: IconButton(
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) => MyMap(snapshot
+                                                      .data!.docs[index].id)));
+                                        },
+                                        icon: Icon(Icons.directions)),
+                                  ),
+                                ),
+
+                              ),
+                            ],
+                          );
+                        });
+                  },
+                ),
+              ),*/
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -166,10 +344,9 @@ class _HomeScreenState extends State<HomeScreen> {
       FirebaseFirestore.instance.collection('location').doc("user1").set({
         "latitude": _locationResult.latitude,
         "longitude": _locationResult.longitude,
-        "name":   Text(
+        "name": Text(
           AuthenticationService().getUserName() ?? "",
-          style: const TextStyle(
-              fontSize: 30, color: Colors.black54),
+          style: const TextStyle(fontSize: 30, color: Colors.black54),
         ),
       }, SetOptions(merge: true));
     } catch (e) {
@@ -189,10 +366,9 @@ class _HomeScreenState extends State<HomeScreen> {
       FirebaseFirestore.instance.collection('location').doc("user1").set({
         "latitude": currentLocation.latitude,
         "longitude": currentLocation.longitude,
-        "name":   Text(
+        "name": Text(
           AuthenticationService().getUserName() ?? "",
-          style: const TextStyle(
-              fontSize: 30, color: Colors.black54),
+          style: const TextStyle(fontSize: 30, color: Colors.black54),
         ),
       }, SetOptions(merge: true));
     });

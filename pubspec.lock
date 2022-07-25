@@ -146,6 +146,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_inset_box_shadow:
+    dependency: "direct main"
+    description:
+      name: flutter_inset_box_shadow
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.8"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -153,6 +160,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.5"
+  flutter_neumorphic:
+    dependency: "direct main"
+    description:
+      name: flutter_neumorphic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
