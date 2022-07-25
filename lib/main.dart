@@ -5,8 +5,11 @@ import 'package:bus_app/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   AuthenticationService.initializeService();
   SystemChrome.setSystemUIOverlayStyle( const SystemUiOverlayStyle(
     statusBarIconBrightness: Brightness.dark,
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           "/" : (context) => WelcomeScreen(),
-          "/home" : (context) =>MyApp(),
+          "/home" : (context) =>HomeScreen(),
         },
     );
 
