@@ -32,25 +32,61 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var currentPage = DrawerSections.account;
   bool isButtonPressed = false;
-  void buttonPressed(){
-    setState((){
+  bool is2ndButtonPressed = false;
+  bool is3rdButtonPressed = false;
+  bool is4thButtonPressed = false;
+
+  void buttonPressed() {
+    setState(() {
       if (isButtonPressed == false) {
-        isButtonPressed =true;
-      }  else if (isButtonPressed == true ) {
-        isButtonPressed =false;
+        isButtonPressed = true;
+      } else if (isButtonPressed == true) {
+        isButtonPressed = false;
+      }
+    });
+  }
+
+  void button2Pressed() {
+    setState(() {
+      if (is2ndButtonPressed == false) {
+        is2ndButtonPressed = true;
+      } else if (is2ndButtonPressed == true) {
+        is2ndButtonPressed = false;
+      }
+    });
+  }
+
+  void button3Pressed() {
+    setState(() {
+      if (is3rdButtonPressed == false) {
+        is3rdButtonPressed = true;
+      } else if (is3rdButtonPressed == true) {
+        is3rdButtonPressed = false;
+      }
+    });
+  }
+
+  void button4Pressed() {
+    setState(() {
+      if (is4thButtonPressed == false) {
+        is4thButtonPressed = true;
+      } else if (is4thButtonPressed == true) {
+        is4thButtonPressed = false;
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Shuttle Tracker", style: TextStyle(color: Colors.black),),
+        title: Text(
+          "Shuttle Tracker",
+          style: TextStyle(color: Colors.black),
+        ),
         centerTitle: true,
         actions: [
           Padding(
@@ -62,7 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey.shade800,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(child: IconButton(onPressed: (){}, icon: Icon(Icons.notifications))),
+              child: Center(
+                  child: IconButton(
+                      onPressed: () {}, icon: Icon(Icons.notifications))),
             ),
           ),
         ],
@@ -150,44 +188,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   children: [
-
-                  NeuButton(
-                    id: 1,
-                    title: "Commercial",
-                    onTap: buttonPressed,
-                    isButtonPressed: isButtonPressed,
-                  ),
                     NeuButton(
-                      id:2,
-                      title: "Brunei",
+                      id: 1,
+                      title: "Commercial",
                       onTap: buttonPressed,
                       isButtonPressed: isButtonPressed,
+                    ),
+                    NeuButton(
+                      id: 2,
+                      title: "Brunei",
+                      onTap: button2Pressed,
+                      isButtonPressed: is2ndButtonPressed,
                     ),
                     NeuButton(
                       id: 3,
                       title: "Bomso Gate",
-                      onTap: buttonPressed,
-                      isButtonPressed: isButtonPressed,
+                      onTap: button3Pressed,
+                      isButtonPressed: is3rdButtonPressed,
                     ),
                     NeuButton(
                       id: 4,
                       title: "Medical Village",
-                      onTap: buttonPressed,
-                      isButtonPressed: isButtonPressed,
+                      onTap: button4Pressed,
+                      isButtonPressed: is4thButtonPressed,
                     ),
-                    NeuButton(
-                      id: 5,
-                      title: "",
-                      onTap: buttonPressed,
-                      isButtonPressed: isButtonPressed,
-                    ),
-                    NeuButton(
-                      id: 6,
-                      title: "",
-                      onTap: buttonPressed,
-                      isButtonPressed: isButtonPressed,
-                    ),
-                    
+                    // NeuButton(
+                    //   id: 5,
+                    //   title: "",
+                    //   onTap: buttonPressed,
+                    //   isButtonPressed: isButtonPressed,
+                    // ),
+                    // NeuButton(
+                    //   id: 6,
+                    //   title: "",
+                    //   onTap: buttonPressed,
+                    //   isButtonPressed: isButtonPressed,
+                    // ),
                   ],
                 ),
               ),
