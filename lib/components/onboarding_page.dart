@@ -28,57 +28,59 @@ class OnBoardingPage extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                image,
-                const SizedBox(
-                  height: 20,
-                ),
-                Visibility(
-                  visible: !isFirstScreen,
-                  replacement: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        title,
-
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: Colors.teal.shade700),
-                      ),
-                      SizedBox(width: 8,),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  image,
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Visibility(
+                    visible: !isFirstScreen,
+                    replacement: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                         Text(
-                            AuthenticationService().getUserName() ?? "",
-                        style: const TextStyle(
-                            fontSize: 30, color: Colors.black54),
-                      ),
-                    ],
+                          title,
+            
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Colors.teal.shade700),
+                        ),
+                        SizedBox(width: 8,),
+                          Text(
+                              AuthenticationService().getUserName() ?? "",
+                          style: const TextStyle(
+                              fontSize: 30, color: Colors.black54),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      title,
+            
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                          color: Colors.teal.shade700),
+                    ),
                   ),
-                  child: Text(
-                    title,
-
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.teal.shade700),
+                  SizedBox(
+                    width: 10,
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                 const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 45),
-                  child: Text(
-                    description,
-                    style: TextStyle(fontSize: 20, color: Colors.teal.shade700),
+                   const SizedBox(
+                    height: 20,
                   ),
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 45),
+                    child: Text(
+                      description,
+                      style: TextStyle(fontSize: 20, color: Colors.teal.shade700),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Visibility(
