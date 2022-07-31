@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bus_app/components/drawer_custom_widget.dart';
+import 'package:bus_app/components/drawer_list_view.dart';
 import 'package:bus_app/components/my_map.dart';
 import 'package:bus_app/components/neu_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -105,19 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.grey,
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                MyHeaderDrawer(),
-                MyDrawerList(),
-              ],
-            ),
-          ),
-        ),
-      ),
+      drawer: DrawerCustomWidget(),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -428,90 +418,95 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Widget MyDrawerList() {
-    return Container(
-      padding: EdgeInsets.only(top: 15),
-      child: Column(
-        children: [
-          menuItems(1, "My account", Icons.person_outline,
-              currentPage == DrawerSections.account ? true : false),
-          menuItems(2, "Contacts", Icons.people_alt_outlined,
-              currentPage == DrawerSections.contacts ? true : false),
-          menuItems(3, "Events", Icons.event,
-              currentPage == DrawerSections.events ? true : false),
-          menuItems(4, "Help", Icons.help,
-              currentPage == DrawerSections.help ? true : false),
-          Divider(),
-          menuItems(5, "Settings", Icons.settings_outlined,
-              currentPage == DrawerSections.settings ? true : false),
-          menuItems(6, "Notifications", Icons.notifications_outlined,
-              currentPage == DrawerSections.notifications ? true : false),
-          Divider(),
-          menuItems(7, "Privacy policy", Icons.privacy_tip_outlined,
-              currentPage == DrawerSections.privacy_policy ? true : false),
-          menuItems(1, "Send feedback", Icons.feedback_outlined,
-              currentPage == DrawerSections.send_feedback ? true : false),
-        ],
-      ),
-    );
-  }
+  // Widget MyDrawerList() {
+    // return Container(
+    //   padding: EdgeInsets.only(top: 15),
+    //   child: Column(
+    //     children: [
+    //       menuItems(1, "My account", Icons.person_outline,
+    //           currentPage == DrawerSections.account ? true : false),
+    //       menuItems(2, "Contacts", Icons.people_alt_outlined,
+    //           currentPage == DrawerSections.contacts ? true : false),
+    //       menuItems(3, "Events", Icons.event,
+    //           currentPage == DrawerSections.events ? true : false),
+    //       menuItems(4, "Help", Icons.help,
+    //           currentPage == DrawerSections.help ? true : false),
+    //       Divider(),
+    //       menuItems(5, "Settings", Icons.settings_outlined,
+    //           currentPage == DrawerSections.settings ? true : false),
+    //       menuItems(6, "Notifications", Icons.notifications_outlined,
+    //           currentPage == DrawerSections.notifications ? true : false),
+    //       Divider(),
+    //       menuItems(7, "Privacy policy", Icons.privacy_tip_outlined,
+    //           currentPage == DrawerSections.privacy_policy ? true : false),
+    //       menuItems(1, "Send feedback", Icons.feedback_outlined,
+    //           currentPage == DrawerSections.send_feedback ? true : false),
+    //     ],
+    //   ),
+    // );
+  // }
 
-  Widget menuItems(int id, String title, IconData icon, bool selected) {
-    return Material(
-        color: selected ? Colors.grey.shade300 : Colors.transparent,
-        child: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-            if (id == 1) {
-              currentPage = DrawerSections.account;
-            }
-            if (id == 2) {
-              currentPage = DrawerSections.contacts;
-            }
-            if (id == 3) {
-              currentPage = DrawerSections.events;
-            }
-            if (id == 4) {
-              currentPage = DrawerSections.help;
-            }
-            if (id == 5) {
-              currentPage = DrawerSections.settings;
-            }
-            if (id == 6) {
-              currentPage = DrawerSections.notifications;
-            }
-            if (id == 7) {
-              currentPage = DrawerSections.privacy_policy;
-            }
-            if (id == 8) {
-              currentPage = DrawerSections.send_feedback;
-            }
-          },
-          child: Padding(
-            padding: EdgeInsets.all(15),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Icon(
-                    icon,
-                    size: 20,
-                    color: Colors.black,
-                  ),
-                ),
-                Expanded(
-                    flex: 3,
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                      ),
-                    ))
-              ],
-            ),
-          ),
-        ));
-  }
+//   Widget menuItems(int id, String title, IconData icon, bool selected) {
+//     return Material(
+//         color: selected ? Colors.grey.shade300 : Colors.transparent,
+//         child: InkWell(
+//           onTap: () {
+//             setState(() {
+//                Navigator.pop(context);
+//             if (id == 1) {
+//               // currentPage = DrawerSections.account;
+              
+//             }
+//             if (id == 2) {
+//               currentPage = DrawerSections.contacts;
+//             }
+//             if (id == 3) {
+//               currentPage = DrawerSections.events;
+//             }
+//             if (id == 4) {
+//               currentPage = DrawerSections.help;
+//             }
+//             if (id == 5) {
+//               currentPage = DrawerSections.settings;
+//             }
+//             if (id == 6) {
+//               currentPage = DrawerSections.notifications;
+//             }
+//             if (id == 7) {
+//               currentPage = DrawerSections.privacy_policy;
+//             }
+//             if (id == 8) {
+//               currentPage = DrawerSections.send_feedback;
+//             }
+              
+//             });
+           
+//           },
+//           child: Padding(
+//             padding: EdgeInsets.all(15),
+//             child: Row(
+//               children: [
+//                 Expanded(
+//                   child: Icon(
+//                     icon,
+//                     size: 20,
+//                     color: Colors.black,
+//                   ),
+//                 ),
+//                 Expanded(
+//                     flex: 3,
+//                     child: Text(
+//                       title,
+//                       style: TextStyle(
+//                         color: Colors.black,
+//                         fontSize: 16,
+//                       ),
+//                     ))
+//               ],
+//             ),
+//           ),
+//         ));
+//   }
 }
 
 enum DrawerSections {
