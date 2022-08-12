@@ -8,11 +8,25 @@ import 'package:flutter/material.dart';
 import '../../components/social_media_options.dart';
 import '../signup/signup_screen.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   LoginForm({Key? key}) : super(key: key);
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController emailEditingController = TextEditingController();
+
   final TextEditingController pwdEditingController = TextEditingController();
+
+   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
+
+    FocusNode _emailFocusNode = FocusNode();
+     FocusNode _passwordFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,9 +40,14 @@ class LoginForm extends StatelessWidget {
           height: 30,
         ),
         Form(
+             autovalidateMode: _autoValidate,
             key: _formKey,
             child: Column(children: [
               TextFormField(
+                 focusNode: _emailFocusNode,
+                  autovalidateMode: _emailFocusNode.hasFocus
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                 controller: emailEditingController,
                 keyboardType: TextInputType.emailAddress,
                 autofocus: false,
@@ -60,6 +79,10 @@ class LoginForm extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
+                focusNode: _passwordFocusNode,
+                  autovalidateMode: _passwordFocusNode.hasFocus
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                 controller: pwdEditingController,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -131,7 +154,9 @@ class LoginForm extends StatelessWidget {
                       });
 
 
-                    }
+                    }else {
+      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
+    }
                   })
             ])),
         const SizedBox(

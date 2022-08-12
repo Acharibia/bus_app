@@ -7,14 +7,32 @@ import 'package:bus_app/utils/util.dart';
 import 'package:flutter/material.dart';
 
 
-class SignUpForm extends StatelessWidget {
+class SignUpForm extends StatefulWidget {
   SignUpForm({Key? key}) : super(key: key);
+
+  @override
+  State<SignUpForm> createState() => _SignUpFormState();
+}
+
+class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController nameEditingController = TextEditingController();
+
   final TextEditingController emailEditingController = TextEditingController();
+
   final TextEditingController pwdEditingController = TextEditingController();
+
   final TextEditingController cfrnPwdEditingController =
       TextEditingController();
+
+        AutovalidateMode _autoValidate = AutovalidateMode.disabled;
+
+    FocusNode _emailFocusNode = FocusNode();
+
+     FocusNode _passwordFocusNode = FocusNode();
+      FocusNode _nameFocusNode = FocusNode();
+     FocusNode _confirmpasswordFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +48,15 @@ class SignUpForm extends StatelessWidget {
             height: 30,
           ),
           Form(
+              autovalidateMode: _autoValidate,
             key: _formKey,
             child: Column(
               children: [
                 TextFormField(
+                   focusNode: _nameFocusNode,
+                  autovalidateMode: _nameFocusNode.hasFocus
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                   controller: nameEditingController,
                   keyboardType: TextInputType.name,
                   enableSuggestions: false,
@@ -64,6 +87,10 @@ class SignUpForm extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
+                   focusNode: _emailFocusNode,
+                  autovalidateMode: _emailFocusNode.hasFocus
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                   controller: emailEditingController,
                   keyboardType: TextInputType.emailAddress,
                   autofocus: false,
@@ -95,6 +122,10 @@ class SignUpForm extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
+                   focusNode: _passwordFocusNode,
+                  autovalidateMode: _passwordFocusNode.hasFocus
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                   controller: pwdEditingController,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -124,6 +155,10 @@ class SignUpForm extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
+                   focusNode: _confirmpasswordFocusNode,
+                  autovalidateMode: _confirmpasswordFocusNode.hasFocus
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                   controller: cfrnPwdEditingController,
                   obscureText: true,
                   decoration: InputDecoration(
@@ -181,6 +216,9 @@ class SignUpForm extends StatelessWidget {
 
 
                       }
+                      else {
+      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
+    }
                     }),
               ],
             ),

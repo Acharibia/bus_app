@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bus_app/components/drawer_custom_widget.dart';
 import 'package:bus_app/components/drawer_list_view.dart';
 import 'package:bus_app/components/my_map.dart';
+import 'package:bus_app/components/my_second_map.dart';
 import 'package:bus_app/components/neu_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -46,6 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
         isButtonPressed = false;
       }
     });
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => ComercialGoogleMap()));
   }
 
   void button2Pressed() {
@@ -419,31 +422,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // Widget MyDrawerList() {
-    // return Container(
-    //   padding: EdgeInsets.only(top: 15),
-    //   child: Column(
-    //     children: [
-    //       menuItems(1, "My account", Icons.person_outline,
-    //           currentPage == DrawerSections.account ? true : false),
-    //       menuItems(2, "Contacts", Icons.people_alt_outlined,
-    //           currentPage == DrawerSections.contacts ? true : false),
-    //       menuItems(3, "Events", Icons.event,
-    //           currentPage == DrawerSections.events ? true : false),
-    //       menuItems(4, "Help", Icons.help,
-    //           currentPage == DrawerSections.help ? true : false),
-    //       Divider(),
-    //       menuItems(5, "Settings", Icons.settings_outlined,
-    //           currentPage == DrawerSections.settings ? true : false),
-    //       menuItems(6, "Notifications", Icons.notifications_outlined,
-    //           currentPage == DrawerSections.notifications ? true : false),
-    //       Divider(),
-    //       menuItems(7, "Privacy policy", Icons.privacy_tip_outlined,
-    //           currentPage == DrawerSections.privacy_policy ? true : false),
-    //       menuItems(1, "Send feedback", Icons.feedback_outlined,
-    //           currentPage == DrawerSections.send_feedback ? true : false),
-    //     ],
-    //   ),
-    // );
+  // return Container(
+  //   padding: EdgeInsets.only(top: 15),
+  //   child: Column(
+  //     children: [
+  //       menuItems(1, "My account", Icons.person_outline,
+  //           currentPage == DrawerSections.account ? true : false),
+  //       menuItems(2, "Contacts", Icons.people_alt_outlined,
+  //           currentPage == DrawerSections.contacts ? true : false),
+  //       menuItems(3, "Events", Icons.event,
+  //           currentPage == DrawerSections.events ? true : false),
+  //       menuItems(4, "Help", Icons.help,
+  //           currentPage == DrawerSections.help ? true : false),
+  //       Divider(),
+  //       menuItems(5, "Settings", Icons.settings_outlined,
+  //           currentPage == DrawerSections.settings ? true : false),
+  //       menuItems(6, "Notifications", Icons.notifications_outlined,
+  //           currentPage == DrawerSections.notifications ? true : false),
+  //       Divider(),
+  //       menuItems(7, "Privacy policy", Icons.privacy_tip_outlined,
+  //           currentPage == DrawerSections.privacy_policy ? true : false),
+  //       menuItems(1, "Send feedback", Icons.feedback_outlined,
+  //           currentPage == DrawerSections.send_feedback ? true : false),
+  //     ],
+  //   ),
+  // );
   // }
 
 //   Widget menuItems(int id, String title, IconData icon, bool selected) {
@@ -455,7 +458,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //                Navigator.pop(context);
 //             if (id == 1) {
 //               // currentPage = DrawerSections.account;
-              
+
 //             }
 //             if (id == 2) {
 //               currentPage = DrawerSections.contacts;
@@ -478,9 +481,9 @@ class _HomeScreenState extends State<HomeScreen> {
 //             if (id == 8) {
 //               currentPage = DrawerSections.send_feedback;
 //             }
-              
+
 //             });
-           
+
 //           },
 //           child: Padding(
 //             padding: EdgeInsets.all(15),
