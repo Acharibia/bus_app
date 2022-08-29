@@ -1,5 +1,7 @@
 
 import 'package:bus_app/screens/home/home_screen.dart';
+import 'package:bus_app/screens/home/home_screen.dart';
+import 'package:bus_app/screens/nav/cbn.dart';
 import 'package:bus_app/screens/welcome/welcome.dart';
 import 'package:bus_app/services/authentication_service.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           "/" : (context) => WelcomeScreen(),
-          "/home" : (context) =>HomeScreen(),
+           "/bottom_nav" : (context) =>Bottom(),
         },
     );
 

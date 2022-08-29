@@ -91,7 +91,7 @@ class OnBoardingPage extends StatelessWidget {
                 SizedBox(
 
                     child: OnBoardingButton(title: "Get Started", onPressed: (){
-                      openHomeScreen(context);
+                      openBottom(context);
                     }),
                   height: 50,
                   width: 300,
@@ -139,3 +139,7 @@ class OnBoardingPage extends StatelessWidget {
 void openHomeScreen(BuildContext context){
   Navigator.pushReplacementNamed(context, "/home");
 }
+void openBottom(BuildContext context){
+  Navigator.pushReplacementNamed(context, "/bottom_nav");
+}
+

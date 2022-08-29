@@ -1,16 +1,15 @@
 import 'dart:async';
-
 import 'package:bus_app/components/drawer_custom_widget.dart';
 import 'package:bus_app/components/drawer_list_view.dart';
 import 'package:bus_app/components/my_map.dart';
 import 'package:bus_app/components/my_second_map.dart';
 import 'package:bus_app/components/neu_button.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../../components/my_drawer_header.dart';
 import '../../services/authentication_service.dart';
 
@@ -28,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _requestPermission();
+    // _requestPermission();
     location.changeSettings(interval: 300, accuracy: loc.LocationAccuracy.high);
     location.enableBackgroundMode(enable: true);
   }
@@ -81,35 +80,49 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  var scaffoldkey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      key: scaffoldkey,
+      backgroundColor: Colors.white,
+/*      endDrawer: Container(
+
+          child: DrawerCustomWidget()),*/
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              scaffoldkey.currentState?.openDrawer();
+            },
+            icon: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
+              child: Image(image: AssetImage("assets/images/menu.gif")),
+            )),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(
-          "Shuttle Tracker",
-          style: TextStyle(color: Colors.black),
+        title: Center(
+          child: Text(
+            "Shuttle Tracker",
+            style: TextStyle(color: Colors.black),
+          ),
         ),
+        iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
         actions: [
           Padding(
             padding: EdgeInsets.all(10),
-            child: Container(
-              width: 40,
-              height: 30,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade800,
-                borderRadius: BorderRadius.circular(10),
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image(
+                  image: AssetImage('assets/images/notification.gif'),
+                ),
               ),
-              child: Center(
-                  child: IconButton(
-                      onPressed: () {}, icon: Icon(Icons.notifications))),
             ),
           ),
         ],
       ),
+
       drawer: DrawerCustomWidget(),
       body: SafeArea(
         child: Container(
@@ -122,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                      image: AssetImage("assets/images/background2.jpg"),
+                      image: AssetImage("assets/images/bus_moving.gif"),
                       fit: BoxFit.cover),
                 ),
                 child: Container(
@@ -174,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 20,
               ),
-              Expanded(
+/*              Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
                   padding: EdgeInsets.all(20),
@@ -205,23 +218,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       onTap: button4Pressed,
                       isButtonPressed: is4thButtonPressed,
                     ),
-                    // NeuButton(
-                    //   id: 5,
-                    //   title: "",
-                    //   onTap: buttonPressed,
-                    //   isButtonPressed: isButtonPressed,
-                    // ),
-                    // NeuButton(
-                    //   id: 6,
-                    //   title: "",
-                    //   onTap: buttonPressed,
-                    //   isButtonPressed: isButtonPressed,
-                    // ),
+                    NeuButton(
+                      id: 5,
+                      title: "",
+                      onTap: buttonPressed,
+                      isButtonPressed: isButtonPressed,
+                    ),
+                    NeuButton(
+                      id: 6,
+                      title: "",
+                      onTap: buttonPressed,
+                      isButtonPressed: isButtonPressed,
+                    ),
                   ],
                 ),
-              ),
+              ),*/ /*
 
-/*              Expanded(child: GridView.count(
+*/ /*              Expanded(child: GridView.count(
                   crossAxisCount: 2,
                   padding: EdgeInsets.all(20),
                   crossAxisSpacing: 10,
@@ -257,9 +270,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   )
                       .toList()),
-              )*/
+              )*/ /*
+*/ /*
 
-              /*
               TextButton(
                   onPressed: () {
                     _getLocation();
@@ -280,11 +293,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Text(
                     "stop live location",
-                  )),*/
-              /* Expanded(
+                  )),
+*/
+              Expanded(
                 child: StreamBuilder(
-                  stream:
-                      FirebaseFirestore.instance.collection("location").snapshots(),
+                  stream: FirebaseFirestore.instance
+                      .collection("location")
+                      .snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
                       return Center(
@@ -296,70 +311,209 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return Column(
                             children: [
-                              Card(
-                                child: ListTile(
-                                  title: Text(snapshot.data!.docs[index]['name']
-                                      .toString()),
-                                  subtitle: Row(
-                                    children: [
-                                      Text(
-                                        snapshot.data!.docs[index]['latitude']
-                                            .toString(),
-                                      ),
-                                      Text(
-                                        snapshot.data!.docs[index]['longitude']
-                                            .toString(),
-                                      )
-                                    ],
-                                  ),
-                                  trailing: IconButton(
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) => MyMap(snapshot
-                                                    .data!.docs[index].id)));
-                                      },
-                                      icon: Icon(Icons.directions)),
-                                ),
-                              ),
-                              Container(
-                                height: 100,
-                                width:300,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                                child: Card(
-                                  child: ListTile(
-                                    title: Text(snapshot.data!.docs[index]['name']
-                                        .toString()),
-                                    subtitle: Row(
-                                      children: [
-                                        Text(
-                                          snapshot.data!.docs[index]['latitude']
-                                              .toString(),
+                              GestureDetector(
+                                  child: Container(
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.blue.shade200,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(4, 4),
                                         ),
-                                        Text(
-                                          snapshot.data!.docs[index]['longitude']
-                                              .toString(),
-                                        )
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(-4, -4),
+                                        ),
                                       ],
                                     ),
-                                    trailing: IconButton(
-                                        onPressed: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) => MyMap(snapshot
-                                                      .data!.docs[index].id)));
-                                        },
-                                        icon: Icon(Icons.directions)),
+                                    child: Card(
+                                      color: Colors.grey.shade300,
+                                      elevation: 0,
+                                      child: Center(
+                                        child: ListTile(
+                                          title: Text(snapshot
+                                              .data!.docs[index]['name']
+                                              .toString()),
+                                          trailing: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/bus.gif')),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => MyMap(snapshot
+                                                .data!.docs[index].id)));
+                                  }),
+                              const SizedBox(
+                                height: 11,
                               ),
+                              GestureDetector(
+                                  child: Container(
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.blue.shade200,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(4, 4),
+                                        ),
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(-4, -4),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Card(
+                                      color: Colors.grey.shade300,
+                                      elevation: 0,
+                                      child: Center(
+                                        child: ListTile(
+                                          title: Text(snapshot
+                                              .data!.docs[index]['name']
+                                              .toString()),
+                                          trailing: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 2),
+                                            child: ClipRRect(
+                                              child: Image(
+                                                  image: AssetImage(
+                                                      'assets/images/bus.gif')),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => MyMap(snapshot
+                                                .data!.docs[index].id)));
+                                  }),
+                              const SizedBox(
+                                height: 11,
+                              ),
+                              GestureDetector(
+                                  child: Container(
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.blue.shade200,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(4, 4),
+                                        ),
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(-4, -4),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Card(
+                                      color: Colors.grey.shade300,
+                                      elevation: 0,
+                                      child: Center(
+                                        child: ListTile(
+                                          title: Text(snapshot
+                                              .data!.docs[index]['name']
+                                              .toString()),
+                                          trailing: ClipRRect(
+                                            child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/bus.gif')),
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => MyMap(snapshot
+                                                .data!.docs[index].id)));
+                                  }),
+                              const SizedBox(
+                                height: 11,
+                              ),
+                              GestureDetector(
+                                  child: Container(
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.blue.shade200,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(4, 4),
+                                        ),
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          spreadRadius: 1,
+                                          blurRadius: 8,
+                                          offset: Offset(-4, -4),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Card(
+                                      color: Colors.grey.shade300,
+                                      elevation: 0,
+                                      child: Center(
+                                        child: ListTile(
+                                          title: Text(snapshot
+                                              .data!.docs[index]['name']
+                                              .toString()),
+                                          trailing: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/bus.gif')),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => MyMap(snapshot
+                                                .data!.docs[index].id)));
+                                  }),
                             ],
                           );
                         });
                   },
                 ),
-              ),*/
+              ),
             ],
           ),
         ),
@@ -421,95 +575,93 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Widget MyDrawerList() {
-  // return Container(
-  //   padding: EdgeInsets.only(top: 15),
-  //   child: Column(
-  //     children: [
-  //       menuItems(1, "My account", Icons.person_outline,
-  //           currentPage == DrawerSections.account ? true : false),
-  //       menuItems(2, "Contacts", Icons.people_alt_outlined,
-  //           currentPage == DrawerSections.contacts ? true : false),
-  //       menuItems(3, "Events", Icons.event,
-  //           currentPage == DrawerSections.events ? true : false),
-  //       menuItems(4, "Help", Icons.help,
-  //           currentPage == DrawerSections.help ? true : false),
-  //       Divider(),
-  //       menuItems(5, "Settings", Icons.settings_outlined,
-  //           currentPage == DrawerSections.settings ? true : false),
-  //       menuItems(6, "Notifications", Icons.notifications_outlined,
-  //           currentPage == DrawerSections.notifications ? true : false),
-  //       Divider(),
-  //       menuItems(7, "Privacy policy", Icons.privacy_tip_outlined,
-  //           currentPage == DrawerSections.privacy_policy ? true : false),
-  //       menuItems(1, "Send feedback", Icons.feedback_outlined,
-  //           currentPage == DrawerSections.send_feedback ? true : false),
-  //     ],
-  //   ),
-  // );
-  // }
+  Widget MyDrawerList() {
+    return Container(
+      padding: EdgeInsets.only(top: 15),
+      child: Column(
+        children: [
+          menuItems(1, "My account", Icons.person_outline,
+              currentPage == DrawerSections.account ? true : false),
+          menuItems(2, "Contacts", Icons.people_alt_outlined,
+              currentPage == DrawerSections.contacts ? true : false),
+          menuItems(3, "Events", Icons.event,
+              currentPage == DrawerSections.events ? true : false),
+          menuItems(4, "Help", Icons.help,
+              currentPage == DrawerSections.help ? true : false),
+          Divider(),
+          menuItems(5, "Settings", Icons.settings_outlined,
+              currentPage == DrawerSections.settings ? true : false),
+          menuItems(6, "Notifications", Icons.notifications_outlined,
+              currentPage == DrawerSections.notifications ? true : false),
+          Divider(),
+          menuItems(7, "Privacy policy", Icons.privacy_tip_outlined,
+              currentPage == DrawerSections.privacy_policy ? true : false),
+          menuItems(1, "Send feedback", Icons.feedback_outlined,
+              currentPage == DrawerSections.send_feedback ? true : false),
+        ],
+      ),
+    );
+  }
 
-//   Widget menuItems(int id, String title, IconData icon, bool selected) {
-//     return Material(
-//         color: selected ? Colors.grey.shade300 : Colors.transparent,
-//         child: InkWell(
-//           onTap: () {
-//             setState(() {
-//                Navigator.pop(context);
-//             if (id == 1) {
-//               // currentPage = DrawerSections.account;
+  Widget menuItems(int id, String title, IconData icon, bool selected) {
+    return Material(
+        color: selected ? Colors.grey.shade300 : Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              Navigator.pop(context);
+              if (id == 1) {
+                // currentPage = DrawerSections.account;
 
-//             }
-//             if (id == 2) {
-//               currentPage = DrawerSections.contacts;
-//             }
-//             if (id == 3) {
-//               currentPage = DrawerSections.events;
-//             }
-//             if (id == 4) {
-//               currentPage = DrawerSections.help;
-//             }
-//             if (id == 5) {
-//               currentPage = DrawerSections.settings;
-//             }
-//             if (id == 6) {
-//               currentPage = DrawerSections.notifications;
-//             }
-//             if (id == 7) {
-//               currentPage = DrawerSections.privacy_policy;
-//             }
-//             if (id == 8) {
-//               currentPage = DrawerSections.send_feedback;
-//             }
-
-//             });
-
-//           },
-//           child: Padding(
-//             padding: EdgeInsets.all(15),
-//             child: Row(
-//               children: [
-//                 Expanded(
-//                   child: Icon(
-//                     icon,
-//                     size: 20,
-//                     color: Colors.black,
-//                   ),
-//                 ),
-//                 Expanded(
-//                     flex: 3,
-//                     child: Text(
-//                       title,
-//                       style: TextStyle(
-//                         color: Colors.black,
-//                         fontSize: 16,
-//                       ),
-//                     ))
-//               ],
-//             ),
-//           ),
-//         ));
-//   }
+              }
+              if (id == 2) {
+                currentPage = DrawerSections.contacts;
+              }
+              if (id == 3) {
+                currentPage = DrawerSections.events;
+              }
+              if (id == 4) {
+                currentPage = DrawerSections.help;
+              }
+              if (id == 5) {
+                currentPage = DrawerSections.settings;
+              }
+              if (id == 6) {
+                currentPage = DrawerSections.notifications;
+              }
+              if (id == 7) {
+                currentPage = DrawerSections.privacy_policy;
+              }
+              if (id == 8) {
+                currentPage = DrawerSections.send_feedback;
+              }
+            });
+          },
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Icon(
+                    icon,
+                    size: 20,
+                    color: Colors.black,
+                  ),
+                ),
+                Expanded(
+                    flex: 3,
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                    ))
+              ],
+            ),
+          ),
+        ));
+  }
 }
 
 enum DrawerSections {
