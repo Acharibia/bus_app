@@ -2,7 +2,7 @@ import 'package:bus_app/screens/drawer_content/account_page.dart';
 import 'package:bus_app/screens/drawer_content/contacts_page.dart';
 import 'package:bus_app/screens/drawer_content/events_page.dart';
 import 'package:bus_app/screens/drawer_content/help_page.dart';
-import 'package:bus_app/screens/drawer_content/notification_page.dart';
+import 'package:bus_app/screens/drawer_content/notification/notification.dart';
 import 'package:bus_app/screens/drawer_content/privacy_policy_page.dart';
 import 'package:bus_app/screens/drawer_content/send_feedback_page.dart';
 import 'package:bus_app/screens/drawer_content/settings_page.dart';
