@@ -27,10 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // _requestPermission();
-    location.changeSettings(interval: 300, accuracy: loc.LocationAccuracy.high);
-    location.enableBackgroundMode(enable: true);
+    _requestPermission();
   }
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  //    _requestPermission();
+  //   // location.changeSettings(interval: 300, accuracy: loc.LocationAccuracy.high);
+  //   // location.enableBackgroundMode(enable: true);
+  // }
 
   var currentPage = DrawerSections.account;
   bool isButtonPressed = false;
@@ -567,6 +573,8 @@ class _HomeScreenState extends State<HomeScreen> {
   _requestPermission() async {
     var status = await Permission.location.request();
     if (status.isGranted) {
+    location.changeSettings(interval: 300, accuracy: loc.LocationAccuracy.high);
+    location.enableBackgroundMode(enable: true);
       print("done");
     } else if (status.isDenied) {
       _requestPermission();

@@ -1,4 +1,4 @@
-import 'package:bus_app/screens/drawer_content/notification_page.dart';
+import 'package:bus_app/screens/drawer_content/notification/notification.dart';
 import 'package:bus_app/screens/drawer_content/settings_page.dart';
 import 'package:bus_app/screens/home/home_screen.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
@@ -52,16 +52,15 @@ class _BottomState extends State<Bottom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-          children: <Widget>[
-            Padding(
-              child: bodyContainer(),
-              padding: EdgeInsets.only(bottom: bottomNavBarHeight),
-            ),
-            Align(alignment: Alignment.bottomCenter, child: bottomNav())
-          ],
-        ),
-
+      body: Stack(
+        children: <Widget>[
+          Padding(
+            child: bodyContainer(),
+            padding: EdgeInsets.only(bottom: bottomNavBarHeight),
+          ),
+          Align(alignment: Alignment.bottomCenter, child: bottomNav())
+        ],
+      ),
     );
   }
 
@@ -76,7 +75,7 @@ class _BottomState extends State<Bottom> {
         widget = SettingsPage();
         break;
       case 2:
-        widget= AccountPage();
+        widget = AccountPage();
         break;
       case 3:
         widget = NotificationPage();

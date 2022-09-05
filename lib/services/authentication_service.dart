@@ -1,11 +1,19 @@
+import 'package:bus_app/services/main_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bus_app/services/auth_response.dart';
 import 'package:flutter/foundation.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class AuthenticationService {
+class AuthenticationService  extends Model{
   static const String emptyMsg = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isloading = false;
+
+    bool get isLoading {
+    return _isloading;
+  }
+
 
   static Future initializeService() async {
     //lets call this init method from main runApp function call
@@ -30,22 +38,30 @@ class AuthenticationService {
       required String email,
       required String password}) async {
     //lets call this method from signup screen
+     _isloading = true;
+    notifyListeners();
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       await userCredential.user!.updateDisplayName(name);
       return AuthResponse(AuthStatus.success, emptyMsg);
     } on FirebaseAuthException catch (e) {
+       _isloading = false;
+    notifyListeners();
       return AuthResponse(AuthStatus.error, generateErrorMessage(e.code));
     }
   }
 
   Future<AuthResponse> signInWithEmail(
       {required String email, required String password}) async {
+         _isloading = true;
+    notifyListeners();
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       return AuthResponse(AuthStatus.success, emptyMsg);
     } on FirebaseAuthException catch (e) {
+       _isloading = false;
+    notifyListeners();
       return AuthResponse(AuthStatus.error, generateErrorMessage(e.code));
     }
   }

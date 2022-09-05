@@ -1,10 +1,15 @@
 import 'package:bus_app/components/rounded_button.dart';
+import 'package:bus_app/components/showdialog.dart';
 import 'package:bus_app/screens/forgot_password/forgot_password_screen.dart';
+import 'package:bus_app/screens/home/home_screen.dart';
+import 'package:bus_app/screens/nav/cbn.dart';
 import 'package:bus_app/screens/onboarding/onboarding_screen.dart';
 import 'package:bus_app/services/auth_response.dart';
 import 'package:bus_app/services/authentication_service.dart';
+import 'package:bus_app/services/main_model.dart';
 import 'package:bus_app/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import '../../components/social_media_options.dart';
 import '../signup/signup_screen.dart';
 
@@ -22,10 +27,10 @@ class _LoginFormState extends State<LoginForm> {
 
   final TextEditingController pwdEditingController = TextEditingController();
 
-   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
+  AutovalidateMode _autoValidate = AutovalidateMode.disabled;
 
-    FocusNode _emailFocusNode = FocusNode();
-     FocusNode _passwordFocusNode = FocusNode();
+  FocusNode _emailFocusNode = FocusNode();
+  FocusNode _passwordFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +45,14 @@ class _LoginFormState extends State<LoginForm> {
           height: 30,
         ),
         Form(
-             autovalidateMode: _autoValidate,
+            autovalidateMode: _autoValidate,
             key: _formKey,
             child: Column(children: [
               TextFormField(
-                 focusNode: _emailFocusNode,
-                  autovalidateMode: _emailFocusNode.hasFocus
-                      ? AutovalidateMode.onUserInteraction
-                      : AutovalidateMode.disabled,
+                focusNode: _emailFocusNode,
+                autovalidateMode: _emailFocusNode.hasFocus
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
                 controller: emailEditingController,
                 keyboardType: TextInputType.emailAddress,
                 autofocus: false,
@@ -80,9 +85,9 @@ class _LoginFormState extends State<LoginForm> {
               ),
               TextFormField(
                 focusNode: _passwordFocusNode,
-                  autovalidateMode: _passwordFocusNode.hasFocus
-                      ? AutovalidateMode.onUserInteraction
-                      : AutovalidateMode.disabled,
+                autovalidateMode: _passwordFocusNode.hasFocus
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
                 controller: pwdEditingController,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -122,8 +127,7 @@ class _LoginFormState extends State<LoginForm> {
                           MaterialPageRoute(
                             builder: (context) => const ForgotPasswordScreen(),
                           ),
-                              (route) => false); //lets check
-
+                          (route) => false); //lets check
                     },
                     child: const Text("Forgot Password"),
                   ),
@@ -132,32 +136,7 @@ class _LoginFormState extends State<LoginForm> {
               const SizedBox(
                 height: 10,
               ),
-              RoundedButton(
-                  label: "LOGIN",
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      //call sign in method of firebase & open home screen on successful login
-                      AuthenticationService().signInWithEmail(email: emailEditingController.text, password: pwdEditingController.text)
-                      .then((authResponse){
-                        if (authResponse.authStatus == AuthStatus.success) {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const OnBoardingScreen(),
-                              ),
-                                  (route) => false); //lets check
-                        }  else {
-                          //show error message from snackbar
-                          Util.showErrorMessage(context, authResponse.message);
-                        }
-
-                      });
-
-
-                    }else {
-      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
-    }
-                  })
+              _buildSignInButton()
             ])),
         const SizedBox(
           height: 10,
@@ -188,5 +167,45 @@ class _LoginFormState extends State<LoginForm> {
         )
       ]),
     );
+  }
+
+  Widget _buildSignInButton() {
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext ctx, Widget? child, MainModel model) {
+      return RoundedButton(
+          label: "LOGIN",
+          onPressed: () {
+            onSubmit(model.signInWithEmail);
+            if (model.isLoading) {
+              showLoadingIndicator(context, 'Signing in...');
+            }
+          });
+    });
+  }
+
+  void onSubmit(Function signInWithEmail) {
+    if (_formKey.currentState!.validate()) {
+      //call sign in method of firebase & open home screen on successful login
+      _formKey.currentState!.save();
+
+      signInWithEmail(
+              email: emailEditingController.text,
+              password: pwdEditingController.text)
+          .then((authResponse) {
+        if (authResponse.authStatus == AuthStatus.success) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Bottom(),
+              ),
+              (route) => false); //lets check
+        } else {
+          //show error message from snackbar
+          Util.showErrorMessage(context, authResponse.message);
+        }
+      });
+    } else {
+      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
+    }
   }
 }

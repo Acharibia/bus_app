@@ -1,11 +1,15 @@
 import 'package:bus_app/components/rounded_button.dart';
+import 'package:bus_app/components/showdialog.dart';
 import 'package:bus_app/components/social_media_options.dart';
+import 'package:bus_app/screens/home/home_screen.dart';
+import 'package:bus_app/screens/onboarding/onboarding_screen.dart';
 import 'package:bus_app/screens/signin/sign_screen.dart';
 import 'package:bus_app/services/auth_response.dart';
 import 'package:bus_app/services/authentication_service.dart';
+import 'package:bus_app/services/main_model.dart';
 import 'package:bus_app/utils/util.dart';
 import 'package:flutter/material.dart';
-
+import 'package:scoped_model/scoped_model.dart';
 
 class SignUpForm extends StatefulWidget {
   SignUpForm({Key? key}) : super(key: key);
@@ -26,13 +30,13 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController cfrnPwdEditingController =
       TextEditingController();
 
-        AutovalidateMode _autoValidate = AutovalidateMode.disabled;
+  AutovalidateMode _autoValidate = AutovalidateMode.disabled;
 
-    FocusNode _emailFocusNode = FocusNode();
+  FocusNode _emailFocusNode = FocusNode();
 
-     FocusNode _passwordFocusNode = FocusNode();
-      FocusNode _nameFocusNode = FocusNode();
-     FocusNode _confirmpasswordFocusNode = FocusNode();
+  FocusNode _passwordFocusNode = FocusNode();
+  FocusNode _nameFocusNode = FocusNode();
+  FocusNode _confirmpasswordFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +52,12 @@ class _SignUpFormState extends State<SignUpForm> {
             height: 30,
           ),
           Form(
-              autovalidateMode: _autoValidate,
+            autovalidateMode: _autoValidate,
             key: _formKey,
             child: Column(
               children: [
                 TextFormField(
-                   focusNode: _nameFocusNode,
+                  focusNode: _nameFocusNode,
                   autovalidateMode: _nameFocusNode.hasFocus
                       ? AutovalidateMode.onUserInteraction
                       : AutovalidateMode.disabled,
@@ -87,7 +91,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   height: 10,
                 ),
                 TextFormField(
-                   focusNode: _emailFocusNode,
+                  focusNode: _emailFocusNode,
                   autovalidateMode: _emailFocusNode.hasFocus
                       ? AutovalidateMode.onUserInteraction
                       : AutovalidateMode.disabled,
@@ -122,7 +126,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   height: 10,
                 ),
                 TextFormField(
-                   focusNode: _passwordFocusNode,
+                  focusNode: _passwordFocusNode,
                   autovalidateMode: _passwordFocusNode.hasFocus
                       ? AutovalidateMode.onUserInteraction
                       : AutovalidateMode.disabled,
@@ -155,7 +159,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   height: 10,
                 ),
                 TextFormField(
-                   focusNode: _confirmpasswordFocusNode,
+                  focusNode: _confirmpasswordFocusNode,
                   autovalidateMode: _confirmpasswordFocusNode.hasFocus
                       ? AutovalidateMode.onUserInteraction
                       : AutovalidateMode.disabled,
@@ -189,37 +193,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 const SizedBox(
                   height: 10,
                 ),
-                RoundedButton(
-                    label: "Sign Up",
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        //once no error, we will create user in firebase & open home screen
-                        //here, but we will shortly write code for that once all screens are built.
-                        //now lets include signup form widget in sign up screen & test
-                        AuthenticationService().signUpWithEmail(
-                            name: nameEditingController.text,
-                            email: emailEditingController.text,
-                            password: pwdEditingController.text)
-                            .then((authResponse) {
-                              if(authResponse.authStatus == AuthStatus.success){
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const SignInScreen(),
-                                    ),
-                                        (route) => false); //lets check
-                              }else{
-                                //in case error, we will show error message using snackbar.
-                                Util.showErrorMessage(context, authResponse.message);
-                              }
-                        });
-
-
-                      }
-                      else {
-      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
-    }
-                    }),
+                _buildSignUpButton(),
               ],
             ),
           ),
@@ -253,5 +227,47 @@ class _SignUpFormState extends State<SignUpForm> {
         ],
       ),
     );
+  }
+
+  Widget _buildSignUpButton() {
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext ctx, Widget? child, MainModel model) {
+      return RoundedButton(
+          label: "Sign Up",
+          onPressed: () {
+            onSubmit(model.signUpWithEmail);
+            if (model.isLoading) {
+              showLoadingIndicator(context, 'Signing up...');
+            }
+          });
+    });
+  }
+
+  void onSubmit(Function signUpWithEmail) {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      //once no error, we will create user in firebase & open home screen
+      //here, but we will shortly write code for that once all screens are built.
+      //now lets include signup form widget in sign up screen & test
+      signUpWithEmail(
+              name: nameEditingController.text,
+              email: emailEditingController.text,
+              password: pwdEditingController.text)
+          .then((authResponse) {
+        if (authResponse.authStatus == AuthStatus.success) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const OnBoardingScreen()
+              ),
+              (route) => false); //lets check
+        } else {
+          //in case error, we will show error message using snackbar.
+          Util.showErrorMessage(context, authResponse.message);
+        }
+      });
+    } else {
+      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
+    }
   }
 }
