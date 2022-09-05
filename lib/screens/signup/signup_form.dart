@@ -2,6 +2,7 @@ import 'package:bus_app/components/rounded_button.dart';
 import 'package:bus_app/components/showdialog.dart';
 import 'package:bus_app/components/social_media_options.dart';
 import 'package:bus_app/screens/home/home_screen.dart';
+import 'package:bus_app/screens/onboarding/onboarding_screen.dart';
 import 'package:bus_app/screens/signin/sign_screen.dart';
 import 'package:bus_app/services/auth_response.dart';
 import 'package:bus_app/services/authentication_service.dart';
@@ -257,7 +258,7 @@ class _SignUpFormState extends State<SignUpForm> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
+                builder: (context) => const OnBoardingScreen()
               ),
               (route) => false); //lets check
         } else {
