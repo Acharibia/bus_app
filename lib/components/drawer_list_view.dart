@@ -1,4 +1,4 @@
-import 'package:bus_app/screens/drawer_content/account_page.dart';
+import 'package:bus_app/screens/drawer_content/account/account_page.dart';
 import 'package:bus_app/screens/drawer_content/contacts_page.dart';
 import 'package:bus_app/screens/drawer_content/events_page.dart';
 import 'package:bus_app/screens/drawer_content/help_page.dart';

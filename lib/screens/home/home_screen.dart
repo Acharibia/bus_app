@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldkey,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade300,
 /*      endDrawer: Container(
 
           child: DrawerCustomWidget()),*/
@@ -101,8 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
               scaffoldkey.currentState?.openDrawer();
             },
             icon: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-              child: Image(image: AssetImage("assets/images/menu.gif")),
+              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                  child: Image(image: AssetImage("assets/images/menu.gif"))),
             )),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -321,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Container(
                                     height: 90,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey.shade300,
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
                                       boxShadow: [
                                         BoxShadow(
@@ -339,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),
                                     child: Card(
-                                      color: Colors.grey.shade300,
+                                      color: Colors.white,
                                       elevation: 0,
                                       child: Center(
                                         child: ListTile(
@@ -370,7 +372,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Container(
                                     height: 90,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey.shade300,
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
                                       boxShadow: [
                                         BoxShadow(
@@ -388,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),
                                     child: Card(
-                                      color: Colors.grey.shade300,
+                                      color: Colors.white,
                                       elevation: 0,
                                       child: Center(
                                         child: ListTile(
@@ -423,7 +425,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Container(
                                     height: 90,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey.shade300,
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
                                       boxShadow: [
                                         BoxShadow(
@@ -441,7 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),
                                     child: Card(
-                                      color: Colors.grey.shade300,
+                                      color: Colors.white,
                                       elevation: 0,
                                       child: Center(
                                         child: ListTile(
@@ -472,7 +474,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Container(
                                     height: 90,
                                     decoration: BoxDecoration(
-                                      color: Colors.grey.shade300,
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
                                       boxShadow: [
                                         BoxShadow(
@@ -490,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ],
                                     ),
                                     child: Card(
-                                      color: Colors.grey.shade300,
+                                      color: Colors.white,
                                       elevation: 0,
                                       child: Center(
                                         child: ListTile(

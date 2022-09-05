@@ -5,7 +5,7 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 
-import '../drawer_content/account_page.dart';
+import '../drawer_content/account/account_page.dart';
 
 class Bottom extends StatefulWidget {
   const Bottom({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class _BottomState extends State<Bottom> {
       Icons.settings,
       "Settings",
       Colors.orange,
-      labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+      labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue.shade50),
     ),
     new TabItem(
       Icons.person,
@@ -85,7 +85,9 @@ class _BottomState extends State<Bottom> {
         break;
     }
     return GestureDetector(
-      child: widget,
+      child:Container(
+        color: selectedColor,
+        child: widget,),
       onTap: () {
         if (_navigationController.value == tabItems.length - 1) {
           _navigationController.value = 0;
