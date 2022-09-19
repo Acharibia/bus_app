@@ -1,4 +1,3 @@
-
 import 'package:bus_app/screens/home/home_screen.dart';
 import 'package:bus_app/services/authentication_service.dart';
 import 'package:flutter/material.dart';
