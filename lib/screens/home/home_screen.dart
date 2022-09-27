@@ -325,20 +325,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.blue.shade200,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(4, 4),
-                                        ),
-                                        BoxShadow(
-                                          color: Colors.white,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(-4, -4),
-                                        ),
-                                      ],
                                     ),
                                     child: Card(
                                       color: Colors.white,
@@ -374,20 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.blue.shade200,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(4, 4),
-                                        ),
-                                        BoxShadow(
-                                          color: Colors.white,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(-4, -4),
-                                        ),
-                                      ],
+
                                     ),
                                     child: Card(
                                       color: Colors.white,
@@ -427,20 +400,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.blue.shade200,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(4, 4),
-                                        ),
-                                        BoxShadow(
-                                          color: Colors.white,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(-4, -4),
-                                        ),
-                                      ],
                                     ),
                                     child: Card(
                                       color: Colors.white,
@@ -476,20 +435,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.blue.shade200,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(4, 4),
-                                        ),
-                                        BoxShadow(
-                                          color: Colors.white,
-                                          spreadRadius: 1,
-                                          blurRadius: 8,
-                                          offset: Offset(-4, -4),
-                                        ),
-                                      ],
+
                                     ),
                                     child: Card(
                                       color: Colors.white,

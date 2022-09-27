@@ -23,13 +23,13 @@ class _BottomState extends State<Bottom> {
       Icons.home,
       "Home",
       Colors.blue.shade200,
-      labelStyle: TextStyle(fontWeight: FontWeight.normal),
+      labelStyle: TextStyle(fontWeight: FontWeight.bold),
     ),
     new TabItem(
       Icons.settings,
       "Settings",
-      Colors.orange,
-      labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue.shade50),
+      Colors.black54,
+      labelStyle: TextStyle(fontWeight: FontWeight.bold,),
     ),
     new TabItem(
       Icons.person,
