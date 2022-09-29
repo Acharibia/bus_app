@@ -42,7 +42,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Material(
                   color: Colors.transparent,
                   child: Ink.image(
-                    image: AssetImage('assets/images/user.png'),
+                    
+                    // ignore: unnecessary_null_comparison
+                    image: NetworkImage(AuthenticationService().getUserPhotoUrl().toString()) == null ? AssetImage('assets/images/user.png') : AssetImage('assets/images/user.png') ,
                     fit: BoxFit.cover,
                     width: 128,
                     height: 128,
@@ -59,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Center(
                 child: Text(
-                  "myemail@gmail.com",
+                   AuthenticationService().getUserEmail().toString(),
                   style: const TextStyle(fontSize: 15, color: Colors.black54),
                 ),
               ),

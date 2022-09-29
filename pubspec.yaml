@@ -50,6 +50,7 @@ dependencies:
   fancy_bottom_navigation: ^0.3.3
   get: ^4.6.5
   scoped_model: ^2.0.0
+  shared_preferences: ^2.0.15
 
 
 
