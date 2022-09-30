@@ -4,16 +4,29 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:bus_app/services/auth_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthenticationService  extends Model{
+class AuthenticationService extends Model {
   static const String emptyMsg = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  SharedPreferences? preferences;
+  late var fullname;
   bool _isloading = false;
 
-    bool get isLoading {
+  bool get isLoading {
     return _isloading;
   }
 
+//for shared preferences
+  // Future<String?> getPreference() async {
+  //   _isloading = true;
+  //   notifyListeners();
+  //   this.preferences = await SharedPreferences.getInstance();
+  //   fullname = this.preferences?.getString("name");
+  //   print({"Printing username": fullname});
+
+  //   return fullname;
+  // }
 
   static Future initializeService() async {
     //lets call this init method from main runApp function call
@@ -28,7 +41,7 @@ class AuthenticationService  extends Model{
               messagingSenderId: "834710142190",
               appId: "1:834710142190:web:202f8738f45e7290e847ff",
               measurementId: "G-W087F5T7S0"));
-    }else {
+    } else {
       await Firebase.initializeApp();
     }
   }
@@ -38,7 +51,7 @@ class AuthenticationService  extends Model{
       required String email,
       required String password}) async {
     //lets call this method from signup screen
-     _isloading = true;
+    _isloading = true;
     notifyListeners();
     try {
       UserCredential userCredential = await _auth
@@ -46,22 +59,23 @@ class AuthenticationService  extends Model{
       await userCredential.user!.updateDisplayName(name);
       return AuthResponse(AuthStatus.success, emptyMsg);
     } on FirebaseAuthException catch (e) {
-       _isloading = false;
-    notifyListeners();
+      _isloading = false;
+      notifyListeners();
       return AuthResponse(AuthStatus.error, generateErrorMessage(e.code));
     }
   }
 
   Future<AuthResponse> signInWithEmail(
       {required String email, required String password}) async {
-         _isloading = true;
+    _isloading = true;
     notifyListeners();
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      print({_auth.currentUser : "Current User Info"});
       return AuthResponse(AuthStatus.success, emptyMsg);
     } on FirebaseAuthException catch (e) {
-       _isloading = false;
-    notifyListeners();
+      _isloading = false;
+      notifyListeners();
       return AuthResponse(AuthStatus.error, generateErrorMessage(e.code));
     }
   }
@@ -87,6 +101,14 @@ class AuthenticationService  extends Model{
 
   String? getUserName() {
     return _auth.currentUser!.displayName;
+  }
+
+  String? getUserEmail() {
+    return _auth.currentUser!.email;
+  }
+
+  String? getUserPhotoUrl() {
+    return _auth.currentUser!.photoURL;
   }
 
   String generateErrorMessage(errorCode) {

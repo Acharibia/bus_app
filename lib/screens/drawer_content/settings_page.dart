@@ -33,18 +33,21 @@ class _SettingsPageState extends State<SettingsPage> {
                             (route) => false); //
                   },
                   icon: Icon(Icons.arrow_back_ios),
+
                   color: Colors.black54,
                 ),
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                   child: Text("Settings", style: TextStyle(color: Colors.black54, fontSize: 40, fontWeight: FontWeight.bold),)),
+
               SizedBox(height: 20,),
               Container(height: 50,
                 width: 370,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-
+          
                 ),
+
 
                 child: ListTile(
                   leading: Icon(Icons.person_outline, color: Colors.black,),
@@ -63,6 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
+
 
                   ),
                   child: ListTile(
@@ -83,6 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
 
+
                   ),
                   child: ListTile(
                     title: Text("Change Password",style: TextStyle(color: Colors.black54, fontSize: 15),),
@@ -96,10 +101,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   indent: 10,
                   endIndent: 10,
                 ),
+
                 Container(height: 50,
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
+
 
                   ),
                   child: ListTile(
@@ -115,11 +122,13 @@ class _SettingsPageState extends State<SettingsPage> {
                   endIndent: 10,
                 ),
 
+
                 SizedBox(height: 20,),
                 Container(height: 50,
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
+
 
                   ),
                   child: ListTile(
@@ -201,6 +210,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
 
+
                   ),
                   child: ListTile(
                     leading: Icon(Icons.more_outlined, color: Colors.black,),
@@ -250,6 +260,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   indent: 10,
                   endIndent: 10,
                 ),
+
             ],),
           ),
         ),

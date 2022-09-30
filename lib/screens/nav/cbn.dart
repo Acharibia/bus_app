@@ -89,11 +89,13 @@ class _BottomState extends State<Bottom> {
         color: selectedColor,
         child: widget,),
       onTap: () {
-        if (_navigationController.value == tabItems.length - 1) {
-          _navigationController.value = 0;
-        } else {
-          _navigationController.value = _navigationController.value! + 1;
-        }
+        // Fixed nav bar  error
+
+        // if (_navigationController.value == tabItems.length - 1) {
+        //   _navigationController.value = 0;
+        // } else {
+        //   _navigationController.value = _navigationController.value! + 1;
+        // }
       },
     );
   }
