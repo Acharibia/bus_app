@@ -1,5 +1,3 @@
-import 'package:bus_app/components/drawer_custom_widget.dart';
-import 'package:bus_app/components/drawer_list_view.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +13,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     bool _value = true;
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.white,
 
       body: SafeArea(
         child: Container(
@@ -35,11 +33,13 @@ class _SettingsPageState extends State<SettingsPage> {
                             (route) => false); //
                   },
                   icon: Icon(Icons.arrow_back_ios),
-                  color: Colors.white,
+
+                  color: Colors.black54,
                 ),
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: Text("Settings", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),)),
+                  child: Text("Settings", style: TextStyle(color: Colors.black54, fontSize: 40, fontWeight: FontWeight.bold),)),
+
               SizedBox(height: 20,),
               Container(height: 50,
                 width: 370,
@@ -47,13 +47,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   borderRadius: BorderRadius.circular(20),
           
                 ),
+
+
                 child: ListTile(
-                  leading: Icon(Icons.person_outline, color: Colors.white,),
-                  title: Text("Account",style: TextStyle(color: Colors.white, fontSize: 17),),
+                  leading: Icon(Icons.person_outline, color: Colors.black,),
+                  title: Text("Account",style: TextStyle(color: Colors.black, fontSize: 17),),
                 ),
               ),
                 Divider(
-                  color: Colors.white54,
+                  color: Colors.black12,
                   height: 20,
                   thickness: 1,
                   indent: 10,
@@ -64,51 +66,78 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-          
+
+
                   ),
                   child: ListTile(
-                    title: Text("Edit Profile",style: TextStyle(color: Colors.white, fontSize: 17),),
-                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.white, size: 17,),
+                    title: Text("Edit Profile",style: TextStyle(color: Colors.black54, fontSize: 15),),
+                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
                   ),
                 ),
-          
+                Divider(
+                  color: Colors.black12,
+                  height: 20,
+                  thickness: 1,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+
                 Container(height: 50,
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-          
+
+
                   ),
                   child: ListTile(
-                    title: Text("Change Password",style: TextStyle(color: Colors.white, fontSize: 15),),
-                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.white, size: 17,),
+                    title: Text("Change Password",style: TextStyle(color: Colors.black54, fontSize: 15),),
+                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
                   ),
                 ),
+                Divider(
+                  color: Colors.black12,
+                  height: 20,
+                  thickness: 1,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+
                 Container(height: 50,
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-          
+
+
                   ),
                   child: ListTile(
-                    title: Text("Privacy",style: TextStyle(color: Colors.white, fontSize: 17),),
-                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.white, size: 17,),
+                    title: Text("Privacy",style: TextStyle(color: Colors.black54, fontSize: 15),),
+                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
                   ),
                 ),
-          
+                Divider(
+                  color: Colors.black12,
+                  height: 20,
+                  thickness: 1,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+
+
                 SizedBox(height: 20,),
                 Container(height: 50,
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-          
+
+
                   ),
                   child: ListTile(
-                    leading: Icon(Icons.notifications_outlined, color: Colors.white,),
-                    title: Text("Notification",style: TextStyle(color: Colors.white, fontSize: 20),),
+                    leading: Icon(Icons.notifications_outlined, color: Colors.black,),
+                    title: Text("Notification",style: TextStyle(color: Colors.black, fontSize: 17),),
                   ),
                 ),
                 Divider(
-                  color: Colors.white54,
+                  color: Colors.black12,
                   height: 20,
                   thickness: 1,
                   indent: 10,
@@ -119,10 +148,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-          
+
                   ),
                   child: ListTile(
-                    title: Text("Notification",style: TextStyle(color: Colors.white, fontSize: 17),),
+                    title: Text("Notification",style: TextStyle(color: Colors.black54, fontSize: 17),),
                     trailing: Switch(
                       value: _value,
                       onChanged: (value) {
@@ -130,51 +159,16 @@ class _SettingsPageState extends State<SettingsPage> {
                           _value = value;
                         });
                       },
-                      activeColor: Colors.orangeAccent,
-                      activeTrackColor: Colors.white54,
+                      activeColor: Colors.blue,
+                      activeTrackColor: Colors.black12,
                       inactiveTrackColor: Colors.red[100],
                       inactiveThumbColor: Colors.white24,
                       dragStartBehavior: DragStartBehavior.start,
                     ),
-                  ),
-                ),
-                Container(height: 50,
-                  width: 370,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-          
-                  ),
-                  child: ListTile(
-                    title: Text("App Notification",style: TextStyle(color: Colors.white, fontSize: 17),),
-                    trailing: Switch(
-                      value: _value,
-                      onChanged: (value) {
-                        setState(() {
-          
-                          _value = value;
-                        });
-                      },
-                      activeColor: Colors.orangeAccent,
-                      activeTrackColor: Colors.white54,
-                      inactiveTrackColor: Colors.red[100],
-                      inactiveThumbColor: Colors.white24,
-                      dragStartBehavior: DragStartBehavior.start,
-                    ),
-                  ),
-                ),
-                Container(height: 50,
-                  width: 370,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-          
-                  ),
-                  child: ListTile(
-                    leading: Icon(Icons.more_outlined, color: Colors.white,),
-                    title: Text("More",style: TextStyle(color: Colors.white, fontSize: 20),),
                   ),
                 ),
                 Divider(
-                  color: Colors.white54,
+                  color: Colors.black12,
                   height: 20,
                   thickness: 1,
                   indent: 10,
@@ -184,24 +178,89 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-          
+
                   ),
                   child: ListTile(
-                    title: Text("Language",style: TextStyle(color: Colors.white, fontSize: 17),),
-                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.white, size: 17,),
+                    title: Text("App Notification",style: TextStyle(color: Colors.black54, fontSize: 15),),
+                    trailing: Switch(
+                      value: _value,
+                      onChanged: (value) {
+                        setState(() {
+
+                          _value = value;
+                        });
+                      },
+                      activeColor: Colors.blue,
+                      activeTrackColor: Colors.black12,
+                      inactiveTrackColor: Colors.red[100],
+                      inactiveThumbColor: Colors.white24,
+                      dragStartBehavior: DragStartBehavior.start,
+                    ),
                   ),
+                ),
+                Divider(
+                  color: Colors.black12,
+                  height: 20,
+                  thickness: 1,
+                  indent: 10,
+                  endIndent: 10,
                 ),
                 Container(height: 50,
                   width: 370,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-          
+
+
                   ),
                   child: ListTile(
-                    title: Text("Country",style: TextStyle(color: Colors.white, fontSize: 17),),
-                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.white, size: 17,),
+                    leading: Icon(Icons.more_outlined, color: Colors.black,),
+                    title: Text("More",style: TextStyle(color: Colors.black, fontSize: 17),),
                   ),
                 ),
+                Divider(
+                  color: Colors.black12,
+                  height: 20,
+                  thickness: 1,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+                Container(height: 50,
+                  width: 370,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+
+                  ),
+                  child: ListTile(
+                    title: Text("Language",style: TextStyle(color: Colors.black54, fontSize: 17),),
+                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
+                  ),
+                ),
+                Divider(
+                  color: Colors.black12,
+                  height: 20,
+                  thickness: 1,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+                Container(height: 50,
+                  width: 370,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+
+                  ),
+                  child: ListTile(
+                    title: Text("Country",style: TextStyle(color: Colors.black54, fontSize: 17),),
+                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
+                  ),
+                ),
+                Divider(
+                  color: Colors.black12,
+                  height: 20,
+                  thickness: 1,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+
             ],),
           ),
         ),

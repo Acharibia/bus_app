@@ -1,4 +1,4 @@
-import 'package:bus_app/screens/home/home_screen.dart';
+import'package:bus_app/screens/home/home_screen.dart';
 import 'package:bus_app/services/authentication_service.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +15,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            'My Account',
-            style: TextStyle(color: Colors.black54),
-          ),
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.white,
@@ -31,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   (route) => false); //
             },
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back_ios),
             color: Colors.black54,
           ),
         ),
@@ -52,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               ), 
-        
+          
               Center(
                 child: Text(
                   AuthenticationService().getUserName() ?? "",
@@ -65,101 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: const TextStyle(fontSize: 15, color: Colors.black54),
                 ),
               ),
-              SizedBox(height: 9,),
-              Container(height: 50,
-                width: 370,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(20),
-        
-                ),
-                child: ListTile(
-                  leading: Icon(Icons.privacy_tip_outlined),
-                  title: Text("Privacy"),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                ),
-              ),
-        
-              SizedBox(height: 20,),
-              Container(height: 50,
-                width: 370,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(20),
-        
-                ),
-                child: ListTile(
-                  leading: Icon(Icons.help_outline),
-                  title: Text("Help & Support"),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                ),
-              ),
-        
-              SizedBox(height: 20,),
-        
-              Container(height: 50,
-                width: 370,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(20),
-        
-                ),
-                child: ListTile(
-                  leading: Icon(Icons.settings_outlined),
-                  title: Text("Settings"),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                ),
-              ),
-        
-              SizedBox(height: 20,),
-              Container(height: 50,
-                width: 370,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(20),
-        
-                ),
-                child: Center(
-                  child: ListTile(
-                    leading: Icon(Icons.person_add_alt),
-                    title: Text("Invite Friends"),
-                    trailing: Icon(Icons.arrow_forward_ios),
-                  ),
-                ),
-              ),
-        
-              SizedBox(height: 20,),
-              Container(height: 50,
-                width: 370,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(20),
-        
-                ),
-                child: Center(
-                  child: ListTile(
-                    leading: Icon(Icons.history),
-                    title: Text("Ride History"),
-                    trailing: Icon(Icons.arrow_forward_ios),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20,),
-              Container(height: 50,
-                width: 370,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(20),
-        
-                ),
-                child: Center(
-                  child: ListTile(
-                    leading: Icon(Icons.logout_outlined),
-                    title: Text("Logout"),
-                    trailing: Icon(Icons.arrow_forward_ios),
-                  ),
-                ),
-              ),
+
             ],
           ),
         )

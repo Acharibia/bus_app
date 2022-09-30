@@ -3,34 +3,56 @@ import 'package:bus_app/components/drawer_list_view.dart';
 import 'package:bus_app/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../home/home_screen.dart';
+
 class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.green,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.0),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
           title: Text(
-            "Notification Page",
+            "Notification",
+            style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
-          iconTheme: IconThemeData()),
-      drawer: DrawerCustomWidget(),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                  (route) => false); //
+            },
+            icon: Icon(Icons.arrow_back_ios),
+            color: Colors.black54,
+          ),
+        ),
+      ),
       body: ListView.separated(
-          physics: ClampingScrollPhysics(),
-          padding: EdgeInsets.zero,
-          itemCount: 12,
-          itemBuilder: (context, index) {
-            return NotificationTiles(
-              title: 'Bus app',
-              subtitle: 'Thanks for download Bus app.',
-              enable: true,
-              onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => NotificationView()))
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Divider();
-          }),
+        physics: ClampingScrollPhysics(),
+        padding: EdgeInsets.zero,
+        itemCount: 12,
+        itemBuilder: (context, index) {
+          return NotificationTiles(
+            title: 'Bus app',
+            subtitle: 'Thanks for download Bus app.',
+            enable: true,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => NotificationView(),
+              ),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider();
+        },
+      ),
     );
   }
 }
@@ -42,7 +64,7 @@ class NotificationTiles extends StatelessWidget {
   const NotificationTiles({
     required this.title,
     required this.subtitle,
-     required this.onTap,
+    required this.onTap,
     required this.enable,
   });
 
@@ -50,12 +72,14 @@ class NotificationTiles extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Container(
-          height: 50.0,
-          width: 50.0,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/logo.png'),
-                  fit: BoxFit.cover))),
+        height: 50.0,
+        width: 50.0,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/notify.png'),
+              fit: BoxFit.cover),
+        ),
+      ),
       title: Text(title, style: TextStyle(color: kDarkColor)),
       subtitle: Text(subtitle, style: TextStyle(color: kLightColor)),
       onTap: onTap,
@@ -79,10 +103,10 @@ class NotificationView extends StatelessWidget {
       // margin: EdgeInsets.all(kFixPadding),
       // padding: EdgeInsets.all(kFixPadding),
       // decoration: BoxDecoration(
-          // color: kWhiteColor,
-          // shape: BoxShape.rectangle,
-          // borderRadius: BorderRadius.circular(8.0),
-          // boxShadow: [BoxShadow(color: kLightColor, blurRadius: 2.0)]),
+      // color: kWhiteColor,
+      // shape: BoxShape.rectangle,
+      // borderRadius: BorderRadius.circular(8.0),
+      // boxShadow: [BoxShadow(color: kLightColor, blurRadius: 2.0)]),
       // child: Column(
       //   children: [
       //     Text(
