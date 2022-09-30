@@ -76,7 +76,7 @@ class NotificationTiles extends StatelessWidget {
         width: 50.0,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/Shuttle-Tracker_img.png'),
+              image: AssetImage('assets/images/notify.png'),
               fit: BoxFit.cover),
         ),
       ),

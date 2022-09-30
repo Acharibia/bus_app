@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldkey,
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.white,
 /*      endDrawer: Container(
 
           child: DrawerCustomWidget()),*/
@@ -319,38 +319,44 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return Column(
                             children: [
-                              GestureDetector(
-                                  child: Container(
-                                    height: 90,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Card(
-                                      color: Colors.white,
-                                      elevation: 0,
-                                      child: Center(
-                                        child: ListTile(
-                                          title: Text(snapshot
-                                              .data!.docs[index]['name']
-                                              .toString()),
-                                          trailing: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            child: Image(
-                                                image: AssetImage(
-                                                    'assets/images/bus.gif')),
+                              InkWell(
+                                child: GestureDetector(
+                                    child: Container(
+                                      height: 90,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                          border: Border(
+                                              top: BorderSide(width: 0.5, color: Colors.black54),
+                                              bottom: BorderSide(width: 0.5, color: Colors.black54),
+
+                                          )
+                                      ),
+                                      child: Card(
+                                        color: Colors.white,
+                                        elevation: 0,
+                                        child: Center(
+                                          child: ListTile(
+                                            title: Text(snapshot
+                                                .data!.docs[index]['name']
+                                                .toString()),
+                                            trailing: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: Image(
+                                                  image: AssetImage(
+                                                      'assets/images/bus.gif')),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) => MyMap(snapshot
-                                                .data!.docs[index].id)));
-                                  }),
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) => MyMap(snapshot
+                                                  .data!.docs[index].id)));
+                                    }),
+                              ),
                               const SizedBox(
                                 height: 11,
                               ),
@@ -359,7 +365,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 90,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
+                                        border: Border(
+                                          top: BorderSide(width: 0.5, color: Colors.black54),
+                                          bottom: BorderSide(width: 0.5, color: Colors.black54),
+
+                                        )
 
                                     ),
                                     child: Card(
@@ -369,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: ListTile(
                                           title: Text(snapshot
                                               .data!.docs[index]['name']
-                                              .toString()),
+                                              .toString(), style: TextStyle(color: Colors.black),),
                                           trailing: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 2),
@@ -399,7 +409,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 90,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
+                                        border: Border(
+                                          top: BorderSide(width: 0.5, color: Colors.black54),
+                                          bottom: BorderSide(width: 0.5, color: Colors.black54),
+
+                                        )
                                     ),
                                     child: Card(
                                       color: Colors.white,
@@ -434,8 +448,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 90,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15),
+                                        border: Border(
+                                          top: BorderSide(width: 0.5, color: Colors.black54),
+                                          bottom: BorderSide(width: 0.5, color: Colors.black54),
 
+                                        ),
                                     ),
                                     child: Card(
                                       color: Colors.white,

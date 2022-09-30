@@ -37,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  child: Text("Settings", style: TextStyle(color: Colors.black, fontSize: 40, fontWeight: FontWeight.bold),)),
+                  child: Text("Settings", style: TextStyle(color: Colors.black54, fontSize: 40, fontWeight: FontWeight.bold),)),
               SizedBox(height: 20,),
               Container(height: 50,
                 width: 370,
@@ -150,7 +150,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           _value = value;
                         });
                       },
-                      activeColor: Colors.orangeAccent,
+                      activeColor: Colors.blue,
                       activeTrackColor: Colors.black12,
                       inactiveTrackColor: Colors.red[100],
                       inactiveThumbColor: Colors.white24,
@@ -181,7 +181,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           _value = value;
                         });
                       },
-                      activeColor: Colors.orangeAccent,
+                      activeColor: Colors.blue,
                       activeTrackColor: Colors.black12,
                       inactiveTrackColor: Colors.red[100],
                       inactiveThumbColor: Colors.white24,

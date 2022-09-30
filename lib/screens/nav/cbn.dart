@@ -22,24 +22,24 @@ class _BottomState extends State<Bottom> {
     new TabItem(
       Icons.home,
       "Home",
-      Colors.blue.shade200,
+      Colors.blue,
       labelStyle: TextStyle(fontWeight: FontWeight.bold),
     ),
     new TabItem(
       Icons.settings,
       "Settings",
-      Colors.black54,
+      Colors.blue,
       labelStyle: TextStyle(fontWeight: FontWeight.bold,),
     ),
     new TabItem(
       Icons.person,
       "Account",
-      Colors.red,
+      Colors.blue,
     ),
     new TabItem(
       Icons.notifications,
       "Notification",
-      Colors.cyan,
+      Colors.blue,
     )
   ]);
   late CircularBottomNavigationController _navigationController;
