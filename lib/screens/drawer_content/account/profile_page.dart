@@ -61,6 +61,95 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: const TextStyle(fontSize: 15, color: Colors.black54),
                 ),
               ),
+              Divider(
+                color: Colors.black12,
+                height: 20,
+                thickness: 1,
+                indent: 10,
+                endIndent: 10,
+              ),
+
+              SizedBox(height: 5,),
+              ListTile(
+                leading: Icon(Icons.privacy_tip_outlined),
+                title: Text("Privacy"),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ),
+              Divider(
+                color: Colors.black12,
+                height: 20,
+                thickness: 1,
+                indent: 10,
+                endIndent: 10,
+              ),
+
+              SizedBox(height: 5,),
+              ListTile(
+                leading: Icon(Icons.help_outline),
+                title: Text("Help & Support"),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ),
+              Divider(
+                color: Colors.black12,
+                height: 20,
+                thickness: 1,
+                indent: 10,
+                endIndent: 10,
+              ),
+
+              SizedBox(height: 5,),
+
+              ListTile(
+                leading: Icon(Icons.settings_outlined),
+                title: Text("Settings"),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ),
+              Divider(
+                color: Colors.black12,
+                height: 20,
+                thickness: 1,
+                indent: 10,
+                endIndent: 10,
+              ),
+              SizedBox(height: 5,),
+              Center(
+                child: ListTile(
+                  leading: Icon(Icons.person_add_alt),
+                  title: Text("Invite Friends"),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+              Divider(
+                color: Colors.black12,
+                height: 20,
+                thickness: 1,
+                indent: 10,
+                endIndent: 10,
+              ),
+
+              SizedBox(height: 5,),
+              Center(
+                child: ListTile(
+                  leading: Icon(Icons.history),
+                  title: Text("Ride History"),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+              SizedBox(height: 5,),
+              Center(
+                child: ListTile(
+                  leading: Icon(Icons.logout_outlined),
+                  title: Text("Logout"),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+              Divider(
+                color: Colors.black12,
+                height: 20,
+                thickness: 1,
+                indent: 10,
+                endIndent: 10,
+              ),
 
             ],
           ),
