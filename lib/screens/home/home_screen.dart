@@ -96,16 +96,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
           child: DrawerCustomWidget()),*/
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              scaffoldkey.currentState?.openDrawer();
-            },
-            icon: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                  child: Image(image: AssetImage("assets/images/menu.gif"))),
-            )),
+        // leading: IconButton(
+        //     onPressed: () {
+        //       scaffoldkey.currentState?.openDrawer();
+        //     },
+        //     icon: Padding(
+        //       padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+        //       child: ClipRRect(
+        //         borderRadius: BorderRadius.circular(12),
+        //           child: Image(image: AssetImage("assets/images/menu.gif"))),
+        //     )),
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Center(
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
 
-      drawer: DrawerCustomWidget(),
+      // drawer: DrawerCustomWidget(),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -160,13 +160,30 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        "Hey There",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold),
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          Text(
+                          "Hey There",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 10,) ,
+                        Text(
+                          AuthenticationService().getUserName().toString(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        
+
+                        ],),
                       ),
+                      
                       SizedBox(
                         height: 30,
                       ),
