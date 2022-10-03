@@ -1,4 +1,5 @@
 import 'package:bus_app/services/main_model.dart';
+import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bus_app/services/auth_response.dart';
@@ -9,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthenticationService extends Model {
   static const String emptyMsg = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
+   EmailAuth emailAuth = new EmailAuth(sessionName: "Defyn");
   SharedPreferences? preferences;
   late var fullname;
   bool _isloading = false;
@@ -130,5 +132,20 @@ class AuthenticationService extends Model {
         errorMessage = "Unexpected error occurred, please try later";
     }
     return errorMessage;
+  }
+
+    Future ValidateEmail(String email, String otp) async {
+    _isloading = true;
+    notifyListeners();
+    try {
+      _isloading = true;
+      notifyListeners();
+      emailAuth.validateOtp(recipientMail: email, userOtp: otp);
+      _isloading = false;
+      notifyListeners();
+    } catch (e) {
+      _isloading = false;
+      notifyListeners();
+    }
   }
 }

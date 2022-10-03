@@ -3,6 +3,8 @@
 import 'dart:js';
 
 import 'package:bus_app/components/rounded_button.dart';
+import 'package:bus_app/components/showdialog.dart';
+import 'package:bus_app/screens/onboarding/onboarding_screen.dart';
 import 'package:bus_app/services/auth_response.dart';
 import 'package:bus_app/services/authentication_service.dart';
 import 'package:bus_app/services/main_model.dart';
@@ -14,15 +16,27 @@ import 'package:scoped_model/scoped_model.dart';
 import '../signin/sign_screen.dart';
 import '../signup/signup_screen.dart';
 
-class VerifyEmailForm extends StatelessWidget {
+class VerifyEmailForm extends StatefulWidget {
   VerifyEmailForm({Key? key}) : super(key: key);
+
+  @override
+  State<VerifyEmailForm> createState() => _VerifyEmailFormState();
+}
+
+class _VerifyEmailFormState extends State<VerifyEmailForm> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController nameEditingController = TextEditingController();
+
   final TextEditingController emailEditingController = TextEditingController();
-   TextEditingController otpcontroller = new TextEditingController();
+
+  TextEditingController otpcontroller = new TextEditingController();
+
   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
-   GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
-    EmailAuth emailAuth = new EmailAuth(sessionName: "ShuttleTracker");
+
+  GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
+
+  EmailAuth emailAuth = new EmailAuth(sessionName: "ShuttleTracker");
 
   FocusNode _enterCodeFocusNode = FocusNode();
 
@@ -95,6 +109,7 @@ class VerifyEmailForm extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
+              //wanted to add resend password.
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.end,
               //   children: [
@@ -115,71 +130,51 @@ class VerifyEmailForm extends StatelessWidget {
               // const SizedBox(
               //   height: 10,
               // ),
-              RoundedButton(
-                  label: "CONFIRM CODE",
-                  onPressed: () {
-                    // // we will call firebase reset password by email method
-                    // AuthenticationService()
-                    //     .resetPassword(email: emailEditingController.text)
-                    //     .then((authResponse) {
-                    //   if (authResponse.authStatus == AuthStatus.success) {
-                    //     Util.showSuccessMessage(context,
-                    //         "Email has been sent to reset password, please check your mail id");
-                    //   } else {
-                    //     Util.showErrorMessage(context, authResponse.message);
-                    //   }
-                    // });
-                  })
+              _buildConfirmVerificationButton(context)
             ])),
       ]),
     );
   }
 
-  Widget _buildSignUpButton() {
+  Widget _buildConfirmVerificationButton(context) {
     return ScopedModelDescendant<MainModel>(
         builder: (BuildContext ctx, Widget? child, MainModel model) {
       return RoundedButton(
           label: "CONFIRM CODE",
           onPressed: () {
-            verify(context);
-            // // we will call firebase reset password by email method
-            // AuthenticationService()
-            //     .resetPassword(email: emailEditingController.text)
-            //     .then((authResponse) {
-            //   if (authResponse.authStatus == AuthStatus.success) {
-            //     Util.showSuccessMessage(context,
-            //         "Email has been sent to reset password, please check your mail id");
-            //   } else {
-            //     Util.showErrorMessage(context, authResponse.message);
-            //   }
-            // });
+            onSubmit( context , model.ValidateEmail);
+            if (model.isLoading) {
+              showLoadingIndicator(context, "Verifying email");
+            }
           });
     });
   }
 
-  void verify(context) {
-    var result = emailAuth.validateOtp(
-        recipientMail: AuthenticationService().getUserEmail().toString().trim(), userOtp: otpcontroller.text);
-    if (!result) {
-      // _scaffoldkey.currentState!.showSnackBar(SnackBar(
-      //   duration: Duration(seconds: 4),
-      //   backgroundColor: Colors.red,
-      //   content: Text("Email has been verified"),
-      // ));
-
-      // Navigator.pushAndRemoveUntil(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => StudentMainScreen()),
-      //     (route) => false);
+  void onSubmit(context ,Function ValidateEmail) {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      ValidateEmail(
+          recipientMail:
+              AuthenticationService().getUserEmail().toString().trim(),
+          userOtp: otpcontroller.text).then((authResponse) {
+        if (authResponse.authStatus == AuthStatus.success) {
+          // Navigator.of(context).pop();
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) =>  OnBoardingScreen()),
+              (route) => false); //lets check
+        } else {
+          //in case error, we will show error message using snackbar.
+          Navigator.of(context).pop();
+          Util.showErrorMessage(context, 'Wrong OTP');
+        }
+      });
     } else {
-      // _scaffoldkey.currentState!.showSnackBar(SnackBar(
-      //   duration: Duration(seconds: 4),
-      //   backgroundColor: Colors.red,
-      //   content: Text("Wrong OTP"),
-      // ));
+      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
     }
   }
 }
+
 
 
 
