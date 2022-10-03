@@ -1,3 +1,236 @@
+// ignore_for_file: unused_label
+
+import 'dart:js';
+
+import 'package:bus_app/components/rounded_button.dart';
+import 'package:bus_app/components/showdialog.dart';
+import 'package:bus_app/screens/onboarding/onboarding_screen.dart';
+import 'package:bus_app/services/auth_response.dart';
+import 'package:bus_app/services/authentication_service.dart';
+import 'package:bus_app/services/main_model.dart';
+import 'package:bus_app/utils/util.dart';
+import 'package:email_auth/email_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+import '../signin/sign_screen.dart';
+import '../signup/signup_screen.dart';
+
+class VerifyEmailForm extends StatefulWidget {
+  VerifyEmailForm({Key? key}) : super(key: key);
+
+  @override
+  State<VerifyEmailForm> createState() => _VerifyEmailFormState();
+}
+
+class _VerifyEmailFormState extends State<VerifyEmailForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController nameEditingController = TextEditingController();
+
+  final TextEditingController emailEditingController = TextEditingController();
+
+  TextEditingController otpcontroller = new TextEditingController();
+
+  AutovalidateMode _autoValidate = AutovalidateMode.disabled;
+
+  GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
+
+  EmailAuth emailAuth = new EmailAuth(sessionName: "ShuttleTracker");
+
+  FocusNode _enterCodeFocusNode = FocusNode();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(children: [
+        Text(
+          'Verify Your Email',
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Text(
+          "Please enter the 6 digit code sent to your email",
+          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Form(
+            key: _formKey,
+            child: Column(children: [
+              TextFormField(
+                focusNode: _enterCodeFocusNode,
+                autovalidateMode: _enterCodeFocusNode.hasFocus
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
+                controller: emailEditingController,
+                keyboardType: TextInputType.number,
+                autofocus: false,
+                enableSuggestions: false,
+                decoration: InputDecoration(
+                  hintText: "Enter Pincode",
+                  prefixIcon: Icon(
+                    Icons.email,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(40),
+                    borderSide:
+                        const BorderSide(width: 0, style: BorderStyle.none),
+                  ),
+                  filled: true,
+                  isDense: true,
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  fillColor: Colors.grey[300],
+                ),
+                //apply validation
+                validator: (code) {
+                  late String errorMessage;
+                  String pattern = r"^[1-9]+[0-9]*$";
+                  RegExp regex = RegExp(pattern);
+                  if (code!.isEmpty) {
+                    errorMessage = "code is required";
+                    return errorMessage;
+                  }
+                  if (!regex.hasMatch(code)) {
+                    errorMessage = "Enter a valid otp code";
+                    return errorMessage;
+                  }
+                  if (code.length != 6) {
+                    errorMessage = "Code must 6 numbers";
+                    return errorMessage;
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              //wanted to add resend password.
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     InkWell(onTap: () {
+              //       //   //open forgot password screen here
+              //       //   Navigator.pushAndRemoveUntil(
+              //       //       context,
+              //       //       MaterialPageRoute(
+              //       //         builder: (context) => const ForgotPasswordScreen(),
+              //       //       ),
+              //       //       (route) => false); //lets check
+              //       // },
+              //       child:
+              //       const Text("Resend code");
+              //     }),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              _buildConfirmVerificationButton(context)
+            ])),
+      ]),
+    );
+  }
+
+  Widget _buildConfirmVerificationButton(context) {
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext ctx, Widget? child, MainModel model) {
+      return RoundedButton(
+          label: "CONFIRM CODE",
+          onPressed: () {
+            onSubmit( context , model.ValidateEmail);
+            if (model.isLoading) {
+              showLoadingIndicator(context, "Verifying email");
+            }
+          });
+    });
+  }
+
+  void onSubmit(context ,Function ValidateEmail) {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      ValidateEmail(
+          recipientMail:
+              AuthenticationService().getUserEmail().toString().trim(),
+          userOtp: otpcontroller.text).then((authResponse) {
+        if (authResponse.authStatus == AuthStatus.success) {
+          // Navigator.of(context).pop();
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) =>  OnBoardingScreen()),
+              (route) => false); //lets check
+        } else {
+          //in case error, we will show error message using snackbar.
+          Navigator.of(context).pop();
+          Util.showErrorMessage(context, 'Wrong OTP');
+        }
+      });
+    } else {
+      setState(() => _autoValidate = AutovalidateMode.onUserInteraction);
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import 'package:define_app1/src/utils/app_colors.dart';
 // import 'package:define_app1/auth.config.dart';
 // import 'package:define_app1/src/StudentProfile/StudentMainScreen.dart';

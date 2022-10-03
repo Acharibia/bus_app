@@ -1,4 +1,4 @@
-// var remoteServerConfiguration = {
-//   "server" : "https://defyncollection.herokuapp.com",
-//   "serverKey" : "Lci67q"
-// };
+var remoteServerConfiguration = {
+  "server" : "https://bustracker226.herokuapp.com",
+  "serverKey" : "6H3ug0"
+};

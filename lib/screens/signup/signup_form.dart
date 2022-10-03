@@ -1,6 +1,9 @@
+import 'package:bus_app/auth.config.dart';
 import 'package:bus_app/components/rounded_button.dart';
 import 'package:bus_app/components/showdialog.dart';
 import 'package:bus_app/components/social_media_options.dart';
+import 'package:bus_app/screens/email_verification/email_screen.dart';
+import 'package:bus_app/screens/email_verification/email_verification.dart';
 import 'package:bus_app/screens/home/home_screen.dart';
 import 'package:bus_app/screens/onboarding/onboarding_screen.dart';
 import 'package:bus_app/screens/signin/sign_screen.dart';
@@ -10,6 +13,7 @@ import 'package:bus_app/services/main_model.dart';
 import 'package:bus_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:email_auth/email_auth.dart';
 
 class SignUpForm extends StatefulWidget {
   SignUpForm({Key? key}) : super(key: key);
@@ -37,6 +41,30 @@ class _SignUpFormState extends State<SignUpForm> {
   FocusNode _passwordFocusNode = FocusNode();
   FocusNode _nameFocusNode = FocusNode();
   FocusNode _confirmpasswordFocusNode = FocusNode();
+  EmailAuth emailAuth = new EmailAuth(sessionName: "ShuttleTracker");
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the package
+    emailAuth = new EmailAuth(
+      sessionName: "ShuttleTracker",
+    );
+
+    /// Configuring the remote server
+    emailAuth.config(remoteServerConfiguration);
+  }
+
+  void sendOtp() async {
+    // EmailAuth.sessionName = "Company Name";
+    bool result =
+        await emailAuth.sendOtp(recipientMail: emailEditingController.text);
+    if (result) {
+      print("OTP sent");
+    } else {
+      print("Can not send OTP");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -255,14 +283,15 @@ class _SignUpFormState extends State<SignUpForm> {
               password: pwdEditingController.text)
           .then((authResponse) {
         if (authResponse.authStatus == AuthStatus.success) {
+          sendOtp();
+          Navigator.of(context).pop();
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(
-                builder: (context) => const OnBoardingScreen()
-              ),
+              MaterialPageRoute(builder: (context) =>  EmailVerificationScreen()),
               (route) => false); //lets check
         } else {
           //in case error, we will show error message using snackbar.
+          Navigator.of(context).pop();
           Util.showErrorMessage(context, authResponse.message);
         }
       });

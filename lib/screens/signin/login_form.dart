@@ -193,6 +193,7 @@ class _LoginFormState extends State<LoginForm> {
               password: pwdEditingController.text)
           .then((authResponse) {
         if (authResponse.authStatus == AuthStatus.success) {
+           Navigator.of(context).pop();
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -201,6 +202,7 @@ class _LoginFormState extends State<LoginForm> {
               (route) => false); //lets check
         } else {
           //show error message from snackbar
+           Navigator.of(context).pop();
           Util.showErrorMessage(context, authResponse.message);
         }
       });
