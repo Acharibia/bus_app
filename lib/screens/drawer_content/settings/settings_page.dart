@@ -78,12 +78,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     onTap:() {
                     //open forgot password screen here
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const EditProfile(),
-                    ),
-                        (route) => false); //lets check
+                    ),); //lets check
         },
                   ),
                 ),
@@ -110,12 +109,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     onTap:() {
                       //open forgot password screen here
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const ChangePassword(),
                           ),
-                              (route) => false); //lets check
+                      ); //lets check
                     },
                   ),
                 ),

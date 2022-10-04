@@ -1,6 +1,4 @@
 import 'package:bus_app/components/rounded_button.dart';
-import 'package:bus_app/screens/signin/sign_screen.dart';
-import 'package:bus_app/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -25,7 +23,6 @@ class _ChangePasswordState extends State<ChangePassword> {
               width: 350,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-
               ),
               child: Card(
                 elevation: 10,
@@ -35,7 +32,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                     children: [
                       const Text(
                         "CHANGE PASSWORD",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       SizedBox(
                         height: 20,
@@ -46,15 +44,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: RoundedButton(
-                            label: "CHANGE PASSWORD",
-                            onPressed: () {
-                            }),
+                            label: "CHANGE PASSWORD", onPressed: () {}),
                       ),
                     ],
                   ),
                 ),
-
-
               ),
             ),
           ],
@@ -72,15 +66,15 @@ class _ChangePasswordState extends State<ChangePassword> {
           decoration: InputDecoration(
             suffixIcon: isPasswordTextField
                 ? IconButton(
-                onPressed: () {
-                  setState(() {
-                    isObscurePassword = !isObscurePassword;
-                  });
-                },
-                icon: Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.grey,
-                ))
+                    onPressed: () {
+                      setState(() {
+                        isObscurePassword = !isObscurePassword;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: Colors.grey,
+                    ))
                 : null,
             contentPadding: EdgeInsets.only(bottom: 5),
             labelText: labelText,
