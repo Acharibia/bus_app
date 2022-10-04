@@ -9,76 +9,60 @@ class WelcomeDriver extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 200,),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
-                  children: [
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage("assets/images/background1.jpg"),
+              fit: BoxFit.cover
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              SizedBox(height: 200,),
+              Center(
+                child: Container(
+                  child: Column(
+                    children: [
 
-                    Card(
-                      elevation: 10,
-                      child: SignUpBackground(
-                        color: Colors.white
-                        ,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image(image: AssetImage("assets/images/Shuttle-Tracker_img.png",), height: 200, width: 250,),
-                              Text('Welcome', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, ),),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              choosePathButton(
-                                buttonText('Sign Up'),
-                                    () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> DriverSignUpForm()));
-                                },
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
+                      Container(
+                        height: 400,
+                        width: 300,
+                        child: Card(
+                    elevation: 12,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image(image: AssetImage("assets/images/Shuttle-Tracker_img.png",), height: 200, width: 250,),
+                                Text('Welcome', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, ),),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                choosePathButton(
+                                  buttonText('Sign Up'),
+                                      () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> DriverSignUpForm()));
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
 
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    );
-  }
-}
-
-class SignUpBackground extends StatelessWidget {
-  final Color color;
-  final Widget child;
-
-  const SignUpBackground({
-    Key? key,
-    required this.color,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(20)
-      ),
-      width: 330,
-      height: 430,
-      child: child,
     );
   }
 }

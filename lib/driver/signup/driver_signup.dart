@@ -13,6 +13,8 @@ import 'package:bus_app/utils/util.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 
+import '../driver_home_screen.dart';
+
 class DriverSignUpForm extends StatefulWidget {
   DriverSignUpForm({Key? key}) : super(key: key);
 
@@ -138,7 +140,7 @@ class _DriverSignUpFormState extends State<DriverSignUpForm> {
     return ScopedModelDescendant<MainModel>(
         builder: (BuildContext ctx, Widget? child, MainModel model) {
       return RoundedButton(
-          label: "Sign Up",
+          label: "Get started",
           onPressed: () {
             onSubmit(model.signUpWithEmail);
             if (model.isLoading) {
@@ -162,7 +164,7 @@ class _DriverSignUpFormState extends State<DriverSignUpForm> {
         if (authResponse.authStatus == AuthStatus.success) {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const OnBoardingScreen()),
+              MaterialPageRoute(builder: (context) => const DriverHomeScreen()),
               (route) => false); //lets check
         } else {
           //in case error, we will show error message using snackbar.

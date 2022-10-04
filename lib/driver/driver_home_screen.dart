@@ -8,14 +8,14 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../services/authentication_service.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class DriverHomeScreen extends StatefulWidget {
+  const DriverHomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<DriverHomeScreen> createState() => _DriverHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _DriverHomeScreenState extends State<DriverHomeScreen> {
   loc.Location location = loc.Location();
   StreamSubscription<loc.LocationData>? _locationSubscription;
   @override
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(20),
                 image: const DecorationImage(
                     image:
-                    AssetImage("assets/images/Taxi driver _ nowadays.gif"),
+                        AssetImage("assets/images/Taxi driver _ nowadays.gif"),
                     fit: BoxFit.cover),
               ),
             ),
@@ -83,11 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Container(
               width: 350,
-
               child: Card(
                 elevation: 10,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 70),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 70),
                   child: Column(
                     children: [
                       const SizedBox(
@@ -130,9 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: const Card(
                               child: Center(
                                   child: Text(
-                                    "FULL",
-                                    style: TextStyle(color: Colors.white),
-                                  )),
+                                "FULL",
+                                style: TextStyle(color: Colors.white),
+                              )),
                               color: Colors.deepPurple,
                             ),
                           ),
@@ -142,9 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Card(
                               child: Center(
                                   child: Text(
-                                    "NOT FULL",
-                                    style: TextStyle(color: Colors.white),
-                                  )),
+                                "NOT FULL",
+                                style: TextStyle(color: Colors.white),
+                              )),
                               color: Colors.deepPurple,
                             ),
                           ),
@@ -174,6 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
       openAppSettings();
     }
   }
+
   _getLocation() async {
     try {
       final loc.LocationData _locationResult = await location.getLocation();
@@ -216,6 +217,4 @@ class _HomeScreenState extends State<HomeScreen> {
       _locationSubscription = null;
     });
   }
-
-
 }
