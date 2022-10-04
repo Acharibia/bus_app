@@ -1,5 +1,5 @@
 import 'package:bus_app/screens/drawer_content/notification/notification.dart';
-import 'package:bus_app/screens/drawer_content/settings_page.dart';
+import 'package:bus_app/screens/drawer_content/settings/settings_page.dart';
 import 'package:bus_app/screens/home/home_screen.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';

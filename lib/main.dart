@@ -2,6 +2,7 @@
 import 'package:bus_app/screens/home/home_screen.dart';
 import 'package:bus_app/screens/home/home_screen.dart';
 import 'package:bus_app/screens/nav/cbn.dart';
+import 'package:bus_app/screens/welcome/status.dart';
 import 'package:bus_app/screens/welcome/welcome.dart';
 import 'package:bus_app/services/authentication_service.dart';
 import 'package:bus_app/services/main_model.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       child : MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          "/" : (context) => WelcomeScreen(),
+          "/" : (context) => Status(),
            "/bottom_nav" : (context) =>Bottom(),
         },
        ) // );

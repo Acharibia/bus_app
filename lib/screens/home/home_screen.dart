@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'package:bus_app/components/drawer_custom_widget.dart';
-import 'package:bus_app/components/drawer_list_view.dart';
 import 'package:bus_app/components/my_map.dart';
 import 'package:bus_app/components/my_second_map.dart';
-import 'package:bus_app/components/neu_button.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../../components/my_drawer_header.dart';
+
 import '../../services/authentication_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -96,16 +93,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
           child: DrawerCustomWidget()),*/
       appBar: AppBar(
-        // leading: IconButton(
-        //     onPressed: () {
-        //       scaffoldkey.currentState?.openDrawer();
-        //     },
-        //     icon: Padding(
-        //       padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
-        //       child: ClipRRect(
-        //         borderRadius: BorderRadius.circular(12),
-        //           child: Image(image: AssetImage("assets/images/menu.gif"))),
-        //     )),
+        leading: IconButton(
+          onPressed: () {
+            scaffoldkey.currentState?.openDrawer();
+          },
+          icon: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image(
+                image: AssetImage("assets/images/menu.gif"),
+              ),
+            ),
+          ),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Center(
@@ -123,7 +124,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image(
-                  image: AssetImage('assets/images/notification.gif'),
+                  image: AssetImage(
+                    'assets/images/notification.gif',
+                  ),
                 ),
               ),
             ),
@@ -164,26 +167,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                          Text(
-                          "Hey There",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold),
+                            Text(
+                              "Hey There",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 10,) ,
-                        Text(
-                          AuthenticationService().getUserName().toString(),
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        
-
-                        ],),
                       ),
-                      
                       SizedBox(
                         height: 30,
                       ),
@@ -341,13 +334,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Container(
                                       height: 90,
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                          color: Colors.white,
                                           border: Border(
-                                              top: BorderSide(width: 0.5, color: Colors.black54),
-                                              bottom: BorderSide(width: 0.5, color: Colors.black54),
-
-                                          )
-                                      ),
+                                            top: BorderSide(
+                                                width: 0.5,
+                                                color: Colors.black54),
+                                            bottom: BorderSide(
+                                                width: 0.5,
+                                                color: Colors.black54),
+                                          )),
                                       child: Card(
                                         color: Colors.white,
                                         elevation: 0,
@@ -370,8 +365,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     onTap: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
-                                              builder: (context) => MyMap(snapshot
-                                                  .data!.docs[index].id)));
+                                              builder: (context) => MyMap(
+                                                  snapshot
+                                                      .data!.docs[index].id)));
                                     }),
                               ),
                               const SizedBox(
@@ -381,22 +377,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Container(
                                     height: 90,
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                        color: Colors.white,
                                         border: Border(
-                                          top: BorderSide(width: 0.5, color: Colors.black54),
-                                          bottom: BorderSide(width: 0.5, color: Colors.black54),
-
-                                        )
-
-                                    ),
+                                          top: BorderSide(
+                                              width: 0.5,
+                                              color: Colors.black54),
+                                          bottom: BorderSide(
+                                              width: 0.5,
+                                              color: Colors.black54),
+                                        )),
                                     child: Card(
                                       color: Colors.white,
                                       elevation: 0,
                                       child: Center(
                                         child: ListTile(
-                                          title: Text(snapshot
-                                              .data!.docs[index]['name']
-                                              .toString(), style: TextStyle(color: Colors.black),),
+                                          title: Text(
+                                            snapshot.data!.docs[index]['name']
+                                                .toString(),
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                           trailing: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 2),
@@ -425,13 +425,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Container(
                                     height: 90,
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                        color: Colors.white,
                                         border: Border(
-                                          top: BorderSide(width: 0.5, color: Colors.black54),
-                                          bottom: BorderSide(width: 0.5, color: Colors.black54),
-
-                                        )
-                                    ),
+                                          top: BorderSide(
+                                              width: 0.5,
+                                              color: Colors.black54),
+                                          bottom: BorderSide(
+                                              width: 0.5,
+                                              color: Colors.black54),
+                                        )),
                                     child: Card(
                                       color: Colors.white,
                                       elevation: 0,
@@ -465,11 +467,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 90,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                        border: Border(
-                                          top: BorderSide(width: 0.5, color: Colors.black54),
-                                          bottom: BorderSide(width: 0.5, color: Colors.black54),
-
-                                        ),
+                                      border: Border(
+                                        top: BorderSide(
+                                            width: 0.5, color: Colors.black54),
+                                        bottom: BorderSide(
+                                            width: 0.5, color: Colors.black54),
+                                      ),
                                     ),
                                     child: Card(
                                       color: Colors.white,
@@ -555,8 +558,9 @@ class _HomeScreenState extends State<HomeScreen> {
   _requestPermission() async {
     var status = await Permission.location.request();
     if (status.isGranted) {
-    location.changeSettings(interval: 300, accuracy: loc.LocationAccuracy.high);
-    location.enableBackgroundMode(enable: true);
+      location.changeSettings(
+          interval: 300, accuracy: loc.LocationAccuracy.high);
+      location.enableBackgroundMode(enable: true);
       print("done");
     } else if (status.isDenied) {
       _requestPermission();

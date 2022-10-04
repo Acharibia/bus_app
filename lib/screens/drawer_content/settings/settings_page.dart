@@ -1,7 +1,9 @@
+import 'package:bus_app/screens/drawer_content/settings/change-password.dart';
+import 'package:bus_app/screens/drawer_content/settings/edit-profile.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../home/home_screen.dart';
+import '../../home/home_screen.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -69,9 +71,20 @@ class _SettingsPageState extends State<SettingsPage> {
 
 
                   ),
-                  child: ListTile(
-                    title: Text("Edit Profile",style: TextStyle(color: Colors.black54, fontSize: 15),),
-                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
+                  child: GestureDetector(
+                    child: ListTile(
+                      title: Text("Edit Profile",style: TextStyle(color: Colors.black54, fontSize: 15),),
+                      trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
+                    ),
+                    onTap:() {
+                    //open forgot password screen here
+                    Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EditProfile(),
+                    ),
+                        (route) => false); //lets check
+        },
                   ),
                 ),
                 Divider(
@@ -89,9 +102,21 @@ class _SettingsPageState extends State<SettingsPage> {
 
 
                   ),
-                  child: ListTile(
-                    title: Text("Change Password",style: TextStyle(color: Colors.black54, fontSize: 15),),
-                    trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
+                  child: GestureDetector(
+
+                    child: ListTile(
+                      title: Text("Change Password",style: TextStyle(color: Colors.black54, fontSize: 15),),
+                      trailing: Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 17,),
+                    ),
+                    onTap:() {
+                      //open forgot password screen here
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ChangePassword(),
+                          ),
+                              (route) => false); //lets check
+                    },
                   ),
                 ),
                 Divider(

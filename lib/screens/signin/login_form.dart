@@ -151,12 +151,11 @@ class _LoginFormState extends State<LoginForm> {
             const Text("Don't have an account? "),
             InkWell(
               onTap: () {
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const SignUpScreen(),
-                    ),
-                    (route) => false); //lets check
+                    ),); //lets check
               },
               child: Text(
                 "Sign Up",
